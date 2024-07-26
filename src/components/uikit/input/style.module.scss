@@ -1,0 +1,13 @@
+.input {
+    border: 2px solid var(--color-secondary-colored);
+    border-radius: var(--border-radius-xs);
+    padding: 0px 10px;
+    height: var(--button-height);
+    background: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+    font-size: var(--font-size-paragraph);
+    font-family: 'NunitoSans', sans-serif;
+    font-weight: bold;
+}

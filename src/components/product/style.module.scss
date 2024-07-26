@@ -1,0 +1,35 @@
+.product-card {
+    display: grid;
+    grid-template-areas:
+        'image header'
+        'image description'
+        'image counter';
+    width: 763px;
+    gap: 10px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: var(--border-radius-sm);
+    box-sizing: border-box;
+}
+
+.product-image {
+    grid-area: image;
+    width: 200px;
+    aspect-ratio: 1;
+    margin-right: 10px;
+}
+
+.product-header {
+    margin-top: 10px;
+    grid-area: header;
+}
+
+.product-description {
+    grid-area: description;
+}
+
+.product-counter {
+    margin-bottom: 10px;
+    grid-area: counter;
+    justify-self: end;
+}

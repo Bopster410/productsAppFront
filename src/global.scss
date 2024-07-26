@@ -1,0 +1,94 @@
+$container-max-width-xxl: 1536px;
+
+@font-face {
+    font-family: 'NunitoSans';
+    src: url(NunitoSans.woff2);
+}
+
+:root {
+    --font-size-h1: 80px;
+    --font-size-h2: 64px;
+    --font-size-h3: 48px;
+    --font-size-h4: 32px;
+    --font-size-h5: 24px;
+    --font-size-h6: 20px;
+    --font-size-paragraph: 16px;
+
+    --button-height: 36px;
+
+    --border-radius-xs: 8px;
+    --border-radius-sm: 16px;
+    --border-radius-md: 32px;
+
+    --color-main-dark: #373f47;
+    --color-main-normal: #6c91c2;
+    --color-main-normal-lighter: #9ab4d5;
+    --color-main-light: #c3c9e9;
+    --color-main-bg: #f1f1f7;
+    --color-main-bg-lighter: #ebebf4;
+    --color-secondary-grey: #8b8982;
+    --color-secondary-colored: #aaabbc;
+
+    --color-transition-duration: 0.2s;
+
+    --shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+
+    --container-max-width-xxl: $container-max-width-xxl;
+
+    --z-index-overlay: 100;
+}
+
+body {
+    margin: 0;
+    background-color: var(--color-main-bg);
+}
+
+%text-base {
+    font-family: 'NunitoSans', sans-serif;
+    color: black;
+}
+
+.p {
+    @extend %text-base;
+    font-size: var(--font-size-paragraph);
+}
+
+%header-base {
+    @extend %text-base;
+    font-weight: bold;
+}
+
+.h1 {
+    @extend %header-base;
+    font-size: var(--font-size-h1);
+}
+
+.h2 {
+    @extend %header-base;
+    font-size: var(--font-size-h2);
+}
+
+.h3 {
+    @extend %header-base;
+    font-size: var(--font-size-h3);
+}
+
+.h4 {
+    @extend %header-base;
+    font-size: var(--font-size-h4);
+}
+
+.h5 {
+    @extend %header-base;
+    font-size: var(--font-size-h5);
+}
+
+.h6 {
+    @extend %header-base;
+    font-size: var(--font-size-h6);
+}
+
+.container {
+    width: $container-max-width-xxl;
+    margin: auto;
+}

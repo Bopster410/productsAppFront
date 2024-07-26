@@ -1,0 +1,24 @@
+.navbar-item {
+    text-decoration: none;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+
+    svg {
+        position: relative;
+    }
+}
+
+.navbar-item.navbar-item_active {
+    color: var(--color-secondary-grey);
+    pointer-events: none;
+}
+
+.navbar-item_inactive {
+    color: #000;
+}
+
+.navbar-item_inactive:hover {
+    transition: color var(--color-transition-duration);
+    color: var(--color-main-normal);
+}

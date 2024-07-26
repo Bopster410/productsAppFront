@@ -1,0 +1,18 @@
+import { ajaxGet } from '../../utils/api';
+import { PRODUCTS_URLS } from './urls';
+
+export { ProductByIdContainer } from './container';
+
+type Product = {
+    id: string;
+    name: string;
+    price: number;
+};
+
+export function getAllProducts() {
+    return ajaxGet<Product[]>(PRODUCTS_URLS.ALL, []);
+}
+
+export function getProductById(id: string) {
+    return ajaxGet<Product>(PRODUCTS_URLS.ID + id, []);
+}

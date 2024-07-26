@@ -1,0 +1,16 @@
+.layout {
+    display: grid;
+    height: 100%;
+}
+
+.header {
+    padding: 10px 0;
+    z-index: var(--z-index-overlay);
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.main {
+    padding-top: 20px;
+    box-sizing: border-box;
+}
