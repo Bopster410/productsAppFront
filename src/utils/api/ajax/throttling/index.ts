@@ -1,6 +1,6 @@
 export function throttle<Args>(func: (args?: Args) => void, delay: number) {
-    let timeFlag: NodeJS.Timeout = null;
-    let lastCall: Args = null;
+    let timeFlag: NodeJS.Timeout | null = null;
+    let lastCall: Args | undefined = undefined;
     let debounce = false;
     // let prevLastCall: Args = null;
 
@@ -35,9 +35,9 @@ export function animateLongRequest<Args, Return>(
     startAnimation: () => void,
     stopAnimation: () => void,
     animateAfter: number,
-    animateFor: number,
+    animateFor: number
 ) {
-    let timeFlag: NodeJS.Timeout = null;
+    let timeFlag: NodeJS.Timeout | null = null;
     let isRequestCompleted = false;
 
     return (args?: Args) => {
