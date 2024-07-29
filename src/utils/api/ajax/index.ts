@@ -1,9 +1,7 @@
 import { QueryParam, DataResponce } from './index.types';
-import {
-    ALLOWED_PICTURE_TYPES,
-    BACKEND_URL,
-    METHODS,
-} from '../config/index.constants';
+import { BACKEND_URL } from '../config/index.constants';
+import axios, { AxiosHeaders } from 'axios';
+import { ALLOWED_PICTURE_TYPES, Methods } from './index.constants';
 
 /**
  * Performs ajax request
@@ -15,36 +13,29 @@ import {
  * @returns promise
  */
 export async function ajax<T>(
-    method: string,
+    method: Methods,
     url: string,
-    queryParams: Array<QueryParam>,
+    queryParams?: QueryParam,
     body?: object
 ) {
     let fullUrl = BACKEND_URL + url;
-    if (queryParams) {
-        const newUrl = new URL(fullUrl);
-        queryParams.forEach(({ key, value }) => {
-            newUrl.searchParams.append(key, value);
-        });
-        fullUrl = newUrl.toString();
-    }
 
-    const headers = new Headers();
+    const headers = new AxiosHeaders();
     if (body) {
         headers.set('Content-Type', 'application/json; charset=utf8');
     }
 
-    return fetch(fullUrl, {
+    const config = {
         method,
         headers,
-        credentials: 'include',
-        body: body == null ? null : JSON.stringify(body),
-    })
+        withCredentials: true,
+        params: queryParams,
+        data: body == null ? null : JSON.stringify(body),
+    };
+
+    return axios(fullUrl, config)
         .then((response) => {
-            return response.json();
-        })
-        .then((data: T) => {
-            return data;
+            return response.data;
         })
         .catch((error: T) => {
             return error;
@@ -57,8 +48,8 @@ export async function ajax<T>(
  * @param queryParams - query GET params for requesst
  * @returns promise
  */
-export async function ajaxGet<T>(url: string, queryParams: Array<QueryParam>) {
-    return ajax<T>(METHODS.GET, url, queryParams);
+export async function ajaxGet<T>(url: string, queryParams?: QueryParam) {
+    return ajax<T>(Methods.GET, url, queryParams);
 }
 
 /**
@@ -70,10 +61,10 @@ export async function ajaxGet<T>(url: string, queryParams: Array<QueryParam>) {
  */
 export async function ajaxPost<T>(
     url: string,
-    queryParams: Array<QueryParam>,
-    body: object
+    body: object,
+    queryParams?: QueryParam
 ) {
-    return ajax<T>(METHODS.POST, url, queryParams, body);
+    return ajax<T>(Methods.POST, url, queryParams, body);
 }
 
 /**

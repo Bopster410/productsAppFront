@@ -1,6 +1,5 @@
 export interface QueryParam {
-    key: string;
-    value: string;
+    [key: string]: string;
 }
 
 export interface DataResponce<T> {
