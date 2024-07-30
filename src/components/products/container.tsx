@@ -10,7 +10,7 @@ export const ProductsContainter = () => {
             if (!response) return;
 
             const newProducts = [...products];
-            response.forEach(({ id, name }) => {
+            response.data?.forEach(({ id, name }) => {
                 newProducts.push({ id, name });
             });
             setProducts(newProducts);

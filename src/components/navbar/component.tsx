@@ -3,9 +3,9 @@ import { isClickOut } from '../../utils/clickOut';
 import { motion, useCycle } from 'framer-motion';
 import logoUrl from './logo.jpg';
 import { Menu } from '../menu/component';
-import { UserIcon } from '../userIcon/component';
 import styles from './style.module.scss';
 import classNames from 'classnames';
+import { UserIconContainer } from '../userIcon/container';
 
 // logo size: height 50
 
@@ -44,7 +44,7 @@ export const Navbar = () => {
                 src={logoUrl}
                 alt='logo'
             />
-            <UserIcon />
+            <UserIconContainer />
         </motion.div>
     );
 };

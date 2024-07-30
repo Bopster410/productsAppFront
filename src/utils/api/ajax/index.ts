@@ -1,6 +1,6 @@
 import { QueryParam, DataResponce } from './index.types';
 import { BACKEND_URL } from '../config/index.constants';
-import axios, { AxiosHeaders } from 'axios';
+import axios, { AxiosError, AxiosHeaders, AxiosStatic } from 'axios';
 import { ALLOWED_PICTURE_TYPES, Methods } from './index.constants';
 
 /**
@@ -17,7 +17,7 @@ export async function ajax<T>(
     url: string,
     queryParams?: QueryParam,
     body?: object
-) {
+): Promise<DataResponce<T>> {
     let fullUrl = BACKEND_URL + url;
 
     const headers = new AxiosHeaders();
@@ -35,10 +35,10 @@ export async function ajax<T>(
 
     return axios(fullUrl, config)
         .then((response) => {
-            return response.data;
+            return { status: response.status ?? 500, data: response.data as T };
         })
-        .catch((error: T) => {
-            return error;
+        .catch((error: AxiosError) => {
+            return { status: error.status ?? 500, msg: error.message };
         });
 }
 

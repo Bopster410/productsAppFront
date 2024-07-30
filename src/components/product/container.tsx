@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { decrement, increment, selectCartItemById } from '../cart/store';
 import { Product } from './component';
+import { decrement, increment, selectCartItemById } from '../../store/cart';
 
 type Props = {
     id: string;

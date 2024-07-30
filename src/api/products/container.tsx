@@ -1,22 +1,17 @@
 import { FunctionComponent, useEffect, useState } from 'react';
-import {
-    ProductContainer,
-    ProductContainerProps,
-} from '../../components/product/container';
+import { ProductContainer } from '../../components/product/container';
 import { getProductById } from '.';
 export const ProductByIdContainer: FunctionComponent<{ id: string }> = ({
     id,
 }) => {
-    const [{ name }, setProps] = useState<ProductContainerProps>({
-        id: id,
-        name: '',
-    });
+    const [name, setName] = useState('');
 
     useEffect(() => {
         getProductById(id).then((response) => {
-            setProps({ id: id, name: response.name });
+            if (response.data === undefined) return;
+            setName(response.data?.name);
         });
-    });
+    }, []);
 
     return (
         <ProductContainer

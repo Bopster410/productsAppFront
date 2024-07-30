@@ -1,6 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Indexed, RootState } from '../../store';
-import { ProductContainerProps } from '../product/container';
+import { ProductContainerProps } from '../../components/product/container';
 
 type State = Indexed<{
     total: number;
@@ -58,7 +58,7 @@ export const cartSlice = createSlice({
 export const { increment, decrement, setValue } = cartSlice.actions;
 
 export const selectCartItemById = (state: RootState, id: string) =>
-    state.cart[id];
+    (state.cart as State)[id];
 
 export const selectCartItems = createSelector(
     (state: RootState) => state.cart,

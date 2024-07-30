@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store';
-import { selectCartItems } from './store';
 import { useEffect } from 'react';
 import { Products } from '../products/component';
+import { selectCartItems } from '../../store/cart';
 
 export const CartContainer = () => {
     const navigate = useNavigate();
