@@ -61,7 +61,7 @@ export async function ajaxGet<T>(url: string, queryParams?: QueryParam) {
  */
 export async function ajaxPost<T>(
     url: string,
-    body: object,
+    body?: object,
     queryParams?: QueryParam
 ) {
     return ajax<T>(Methods.POST, url, queryParams, body);

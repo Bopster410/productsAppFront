@@ -5,7 +5,7 @@ import {
     PayloadAction,
 } from '@reduxjs/toolkit';
 import { AsyncThunkConfig, RootState } from '../../store';
-import { logInUserRequest } from '../../api/user';
+import { logInUserRequest, logOutUserRequest } from '../../api/user';
 
 type UserInfo = {
     email: string;
@@ -46,6 +46,25 @@ export const logInUserThunk: AsyncThunk<
     }
 );
 
+export const logOutUserThunk = createAsyncThunk<
+    void,
+    void,
+    { state: RootState }
+>(
+    'userInfo/logOutUserThunk',
+    async (_, { getState, fulfillWithValue, rejectWithValue }) => {
+        const { isLogged } = getState().userInfo;
+        if (!isLogged) {
+            rejectWithValue('user is not logged in');
+            return;
+        }
+
+        const { status } = await logOutUserRequest();
+        if (status === 204) fulfillWithValue('success');
+        if (status !== 204) rejectWithValue('something went wrong');
+    }
+);
+
 export const userInfoSlice = createSlice({
     name: 'userInfo',
     initialState: {
@@ -54,17 +73,6 @@ export const userInfoSlice = createSlice({
         isLogged: false,
     } as State,
     reducers: {
-        logInUser: (
-            state,
-            action: PayloadAction<{ userInfo: UserInfo; tokens: Tokens }>
-        ) => {
-            const { userInfo, tokens } = action.payload;
-
-            state.isLogged = true;
-            state.userInfo = userInfo;
-            state.tokens = tokens;
-        },
-
         setAccessToken: (state, action: PayloadAction<string>) => {
             if (state.tokens === null || !state.isLogged) return;
 
@@ -76,33 +84,30 @@ export const userInfoSlice = createSlice({
 
             state.userInfo.email = action.payload;
         },
-
-        logOutUser: (state) => {
-            state.isLogged = false;
-            state.tokens = null;
-            state.userInfo = null;
-        },
     },
     extraReducers: (builder) => {
-        builder.addCase(logInUserThunk.fulfilled, (state, { payload }) => {
-            if (
-                payload === undefined ||
-                payload.accessToken === undefined ||
-                payload.refreshToken === undefined
-            )
-                return;
-            state.isLogged = true;
-            state.userInfo = { email: payload.email };
-            state.tokens = {
-                accessToken: payload.accessToken,
-                refreshToken: payload.refreshToken,
-            };
-        });
+        builder
+            .addCase(logInUserThunk.fulfilled, (state, { payload }) => {
+                if (
+                    payload === undefined ||
+                    payload.accessToken === undefined ||
+                    payload.refreshToken === undefined
+                )
+                    return;
+                state.isLogged = true;
+                state.userInfo = { email: payload.email };
+                state.tokens = {
+                    accessToken: payload.accessToken,
+                    refreshToken: payload.refreshToken,
+                };
+            })
+            .addCase(logOutUserThunk.fulfilled, (state) => {
+                state.isLogged = false;
+                state.tokens = null;
+                state.userInfo = null;
+            });
     },
 });
-
-export const { setAccessToken, setUserEmail, logOutUser } =
-    userInfoSlice.actions;
 
 export const isUserLogged = (state: RootState) => {
     return (state.userInfo as State).isLogged;

@@ -1,4 +1,9 @@
-import { isUserLogged, logInUserThunk, selectUserInfo } from '../../store/user';
+import {
+    isUserLogged,
+    logInUserThunk,
+    logOutUserThunk,
+    selectUserInfo,
+} from '../../store/user';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../store';
 
@@ -11,11 +16,14 @@ export function useLoginUser() {
     const logIn = (email?: string, password?: string) =>
         dispatch(logInUserThunk({ email, password }));
 
+    const logOut = () => dispatch(logOutUserThunk());
+
     // const signUp = (email: string, password: string)
 
     return {
         isLogged,
         userInfo,
         logIn,
+        logOut,
     };
 }

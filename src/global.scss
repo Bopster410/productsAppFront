@@ -53,6 +53,15 @@ body {
     font-size: var(--font-size-paragraph);
 }
 
+.p-b {
+    @extend .p;
+    font-weight: bold;
+}
+
+.pointer-none {
+    pointer-events: none;
+}
+
 %header-base {
     @extend %text-base;
     font-weight: bold;

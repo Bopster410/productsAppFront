@@ -12,3 +12,7 @@ export function logInUserRequest(email: string, password: string) {
         password,
     });
 }
+
+export function logOutUserRequest() {
+    return ajaxPost(USER_URLS.LOG_OUT_USER);
+}
