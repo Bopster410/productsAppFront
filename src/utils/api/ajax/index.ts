@@ -1,7 +1,39 @@
 import { QueryParam, DataResponce } from './index.types';
 import { BACKEND_URL } from '../config/index.constants';
-import axios, { AxiosError, AxiosHeaders, AxiosStatic } from 'axios';
+import axios, { AxiosError, AxiosHeaders, AxiosInstance } from 'axios';
 import { ALLOWED_PICTURE_TYPES, Methods } from './index.constants';
+
+export const axiosPublic = axios.create({
+    baseURL: BACKEND_URL,
+});
+
+export const axoisPrivate = axios.create({
+    baseURL: BACKEND_URL,
+    headers: { 'Content-Type': 'application/json; charset=utf8' },
+    withCredentials: true,
+});
+
+export async function ajaxCustomAxios<T>(
+    axiosCustom: AxiosInstance,
+    method: Methods,
+    url: string,
+    queryParams?: QueryParam,
+    body?: object
+): Promise<DataResponce<T>> {
+    const config = {
+        method,
+        params: queryParams,
+        data: body == null ? null : JSON.stringify(body),
+    };
+
+    return axiosCustom(url, config)
+        .then((response) => {
+            return { status: response.status ?? 500, data: response.data as T };
+        })
+        .catch((error: AxiosError) => {
+            return { status: error.status ?? 500, msg: error.message };
+        });
+}
 
 /**
  * Performs ajax request

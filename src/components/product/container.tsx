@@ -1,8 +1,13 @@
 import { FunctionComponent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../../store';
 import { Product } from './component';
-import { decrement, increment, selectCartItemById } from '../../store/cart';
+import {
+    addProductToCartThunk,
+    removeProductFromCartThunk,
+} from '../../store/user/thunks';
+import { usePrivateRequest } from '../../hooks/usePrivateRequest';
+import { selectCartItemById } from '../../store/user';
 
 type Props = {
     id: string;
@@ -11,15 +16,17 @@ type Props = {
 export type { Props as ProductContainerProps };
 
 export const ProductContainer: FunctionComponent<Props> = ({ id, name }) => {
-    const dispatch = useDispatch();
+    const axiosInstance = usePrivateRequest();
 
-    const handleIncrement = () => dispatch(increment({ id, name }));
-    const handleDecrement = () => dispatch(decrement(id));
+    const dispatch = useAppDispatch();
+
+    const handleIncrement = () =>
+        dispatch(addProductToCartThunk({ productId: id, axiosInstance }));
+    const handleDecrement = () =>
+        dispatch(removeProductFromCartThunk({ productId: id, axiosInstance }));
 
     const totalInCart =
-        useSelector(
-            (state: RootState) => selectCartItemById(state, id)?.total
-        ) ?? 0;
+        useSelector((state: RootState) => selectCartItemById(state, id)) ?? 0;
 
     return (
         <Product

@@ -1,5 +1,5 @@
 export const USER_URLS = {
     CREATE_USER: '/users/add',
-    LOG_IN_USER: '/auth/login',
-    LOG_OUT_USER: '/auth/logout',
+    ADD_TO_CART: 'users/cart/add',
+    REMOVE_FROM_CART: 'users/cart/remove',
 };
