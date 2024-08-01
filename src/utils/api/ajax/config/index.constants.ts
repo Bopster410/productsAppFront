@@ -1,6 +1,7 @@
-export const BACKEND_URL = 'https://bizonshop.site';
-// export const BACKEND_URL = 'http://95.163.231.109:8080';
-// export const BACKEND_URL = 'http://localhost:81';
+const BACKEND_DOMAIN = 'productsapp-54xs.onrender.com/api';
+
+// export const BACKEND_URL = 'http://localhost:3030/api';
+export const BACKEND_URL = 'https://' + BACKEND_DOMAIN;
 
 export const METHODS = {
     GET: 'GET',
