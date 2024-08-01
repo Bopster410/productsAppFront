@@ -3,7 +3,7 @@ import { ajaxPost } from '../../utils/api';
 import { USER_URLS } from './urls';
 import { ajaxCustomAxios } from '../../utils/api/ajax';
 import { Methods } from '../../utils/api/ajax/index.constants';
-import { ChangeCartResponse } from './types';
+import { CartResponse, ChangeCartResponse } from './types';
 
 export function createUserRequest(email: string, password: string) {
     return ajaxPost(USER_URLS.CREATE_USER, { email, password });
@@ -35,4 +35,12 @@ export function removeProductFromCartRequest(
     );
 }
 
-export type { CartResponse } from './types';
+export function getUserCart(axiosInstance: AxiosInstance) {
+    return ajaxCustomAxios<CartResponse>(
+        axiosInstance,
+        Methods.GET,
+        USER_URLS.GET_USER_CART
+    );
+}
+
+export type { CartResponse, CartProductIdsResponse } from './types';

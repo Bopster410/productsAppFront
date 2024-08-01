@@ -1,11 +1,10 @@
 import { configureStore, Dispatch } from '@reduxjs/toolkit';
-import { cartSlice } from './store/cart';
 import { userInfoSlice } from './store/user';
 import { useDispatch } from 'react-redux';
 
 // Создание стора
 export const store = configureStore({
-    reducer: { cart: cartSlice.reducer, userInfo: userInfoSlice.reducer },
+    reducer: { userInfo: userInfoSlice.reducer },
 });
 
 export type AppStore = typeof store;

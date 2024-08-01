@@ -1,4 +1,4 @@
-import { CartResponse } from '../../api/user';
+import { CartProductIdsResponse } from '../../api/user/types';
 import { Indexed } from '../../store';
 
 type UserInfo = {
@@ -24,7 +24,7 @@ export type LogInUserThunkReturn =
           accessToken?: string | undefined;
           refreshToken?: string | undefined;
           email: string;
-          cart?: CartResponse;
+          cart?: CartProductIdsResponse;
       }
     | undefined;
 
