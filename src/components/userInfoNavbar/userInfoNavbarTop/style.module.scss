@@ -1,0 +1,15 @@
+.user-info-top-container {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.user-icon-img {
+    aspect-ratio: 1;
+    border-radius: 100%;
+}
+
+.log-in-text {
+    white-space: nowrap;
+    pointer-events: none;
+}
