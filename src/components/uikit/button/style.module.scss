@@ -4,7 +4,6 @@
     border-radius: var(--border-radius-xs);
     border: none;
     padding: 0px 12px;
-    height: var(--button-height);
     font-weight: bold;
     font-size: var(--font-size-paragraph);
     font-family: 'NunitoSans', sans-serif;
@@ -13,6 +12,23 @@
 
 .button:hover {
     cursor: pointer;
+}
+
+.button_normal {
+    height: var(--button-height);
+}
+
+.button_xl {
+    height: var(--button-height-xl);
+}
+
+.button_sm {
+    height: var(--button-height-sm);
+}
+
+.button_xs {
+    height: var(--button-height-xs);
+    padding: 0;
 }
 
 // Primary
@@ -26,26 +42,35 @@
     background-color: var(--color-main-normal-lighter);
 }
 
+// Red
+.button_red {
+    color: #fff;
+    background-color: var(--color-main-red);
+    transition: background-color var(--color-transition-duration);
+}
+
+.button_red:hover {
+    background-color: var(--color-main-red-lighter);
+}
+
 // Secondary
-.button_secondary {
+.button_white {
     color: var(--color-main-dark);
+    background-color: white;
+    transition: background-color var(--color-transition-duration);
+}
+
+.button_white:hover {
+    background-color: var(--color-main-bg);
+}
+
+// Outline
+.button_secondary {
+    color: var(--color-secondary-colored);
     background-color: white;
     transition: background-color var(--color-transition-duration);
 }
 
 .button_secondary:hover {
     background-color: var(--color-main-bg);
-}
-
-// Outline
-.button_outline {
-    color: var(--color-main-normal);
-    background-color: rgba(0, 0, 0, 0);
-    transition: color var(--color-transition-duration),
-        background-color var(--color-transition-duration);
-}
-
-.button_outline:hover {
-    color: var(--color-main-normal-lighter);
-    background-color: rgba(var(--color-secondary-grey), 0.5);
 }

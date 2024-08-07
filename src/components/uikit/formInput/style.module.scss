@@ -1,0 +1,31 @@
+.input-container {
+    font-family: 'NunitoSans', sans-serif;
+    position: relative;
+    input {
+        height: var(--button-height-xl);
+        padding-top: 14px;
+    }
+    button {
+        position: absolute;
+        right: 4px;
+        top: 50%;
+    }
+}
+
+.input-placeholder {
+    pointer-events: none;
+    font-weight: lighter;
+    color: var(--color-secondary-colored);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: var(--input-padding-left);
+    transition: 0.2s ease all;
+}
+
+// Input is focused or with value in it
+.input-container:focus-within > .input-placeholder,
+.input-container > input:not([value='']) + .input-placeholder {
+    top: 10px;
+    font-size: var(--font-size-paragraph-sm);
+}

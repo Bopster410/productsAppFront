@@ -1,0 +1,14 @@
+$user-img-size: 50px;
+
+.user-info-container {
+    position: relative;
+}
+
+.user-info-card {
+    position: absolute;
+    background-color: white;
+    right: 0;
+    overflow: hidden;
+    border-radius: var(--border-radius-sm);
+    box-sizing: border-box;
+}
