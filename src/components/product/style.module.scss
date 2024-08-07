@@ -1,35 +1,70 @@
 .product-card {
     display: grid;
     grid-template-areas:
-        'image header'
-        'image description'
-        'image counter';
+        'image header header'
+        'image description description'
+        'image meta counter';
+    grid-template-rows: 44px 80px 48px;
     width: 763px;
-    gap: 10px;
+    gap: 4px;
     background-color: #fff;
     padding: 30px;
     border-radius: var(--border-radius-sm);
     box-sizing: border-box;
+    position: relative;
+    align-items: end;
 }
 
 .product-image {
     grid-area: image;
-    width: 200px;
+    width: 180px;
     aspect-ratio: 1;
     margin-right: 10px;
 }
 
 .product-header {
-    margin-top: 10px;
+    gap: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     grid-area: header;
+}
+
+.product-price {
+    border-bottom: 2px solid var(--color-main-normal);
+    white-space: nowrap;
+}
+
+$z-index-link-after: 0;
+.product-header > a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: $z-index-link-after;
+}
+
+.product-counter {
+    grid-area: counter;
+    justify-self: end;
+    z-index: $z-index-link-after + 1;
+}
+
+.product-meta {
+    grid-area: meta;
+    display: flex;
+    gap: 20px;
+}
+
+.product-meta-item {
+    pointer-events: none;
+    color: var(--color-secondary-grey);
+    display: flex;
+    gap: 4px;
 }
 
 .product-description {
     grid-area: description;
-}
-
-.product-counter {
-    margin-bottom: 10px;
-    grid-area: counter;
-    justify-self: end;
 }
