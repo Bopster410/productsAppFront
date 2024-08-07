@@ -26,6 +26,7 @@ export const Counter: FunctionComponent<Props> = ({
             <MinusButton onClick={onDelete} />
             <Input
                 value={initialValue}
+                align='center'
                 readOnly
             />
             <PlusButton onClick={onAdd} />

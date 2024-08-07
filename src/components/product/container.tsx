@@ -35,6 +35,9 @@ export const ProductContainer: FunctionComponent<Props> = ({ id, name }) => {
             onAdd={handleIncrement}
             onDelete={handleDecrement}
             totalInCart={totalInCart}
+            price={1000}
+            totalComments={10000}
+            rating={4.5}
         />
     );
 };
