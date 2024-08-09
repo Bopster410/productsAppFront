@@ -7,6 +7,8 @@ import { usePrivateRequest } from '../../hooks/usePrivateRequest';
 import { useSelector } from 'react-redux';
 import { isUserLogged } from '../../store/user';
 import { RootState } from '../../store';
+import { handleLongRequest } from '../../utils/api/ajax/throttling';
+import { WithLoader } from '../uikit/withLoader/component';
 
 export const CartContainer = () => {
     const navigate = useNavigate();
@@ -15,6 +17,7 @@ export const CartContainer = () => {
     const [productsInCart, setProductsInCart] = useState<
         ProductContainerProps[]
     >([]);
+    const [isLoading, setLoading] = useState(false);
 
     const isLogged = useSelector((state: RootState) => isUserLogged(state));
 
@@ -24,26 +27,43 @@ export const CartContainer = () => {
             return;
         }
 
-        getUserCart(axiosInstance).then(({ status, data }) => {
-            if (status !== 200 || !data) return;
+        handleLongRequest(
+            () => getUserCart(axiosInstance),
+            () => setLoading(true),
+            () => setLoading(false),
+            {
+                thenFunc: (response) => {
+                    console.log(response);
+                    if (response?.status !== 200 || !response.data) return;
 
-            const loadedProducts: ProductContainerProps[] = [];
+                    const loadedProducts: ProductContainerProps[] = [];
 
-            data.forEach(({ product }) =>
-                loadedProducts.push({
-                    id: product.productId,
-                    name: product.name,
-                })
-            );
+                    response?.data.forEach(({ product }) =>
+                        loadedProducts.push({
+                            id: product.productId,
+                            name: product.name,
+                        })
+                    );
 
-            if (loadedProducts.length === 0) {
-                navigate('/', { replace: true });
-                return;
+                    if (loadedProducts.length === 0) {
+                        navigate('/', { replace: true });
+                        return;
+                    }
+
+                    setProductsInCart(loadedProducts);
+                },
+                handleAfter: 500,
+                handleFor: 1000,
             }
-
-            setProductsInCart(loadedProducts);
-        });
+        )();
     }, [isLogged]);
 
-    return <Products products={productsInCart} />;
+    return (
+        <WithLoader
+            isLoading={isLoading}
+            height='50vh'
+        >
+            <Products products={productsInCart} />
+        </WithLoader>
+    );
 };

@@ -12,6 +12,7 @@ import { useDropdown } from '../../hooks/useDropdown';
 import { LogInFormDataContext } from '../../providers/loginForm/component';
 import { UserInfoNavbarTop } from './userInfoNavbarTop/component';
 import { UserInfoNavbarBottom } from './userInfoNavbarBottom/component';
+import { WithLoader } from '../uikit/withLoader/component';
 
 const USER_LOGGED_IN_TOP_HEIGHT = 50;
 const USER_LOGGED_OUT_TOP_HEIGHT = 32;
@@ -23,6 +24,7 @@ type Props = {
     userInfo: { email?: string };
     onLogInSubmit: (email?: string, password?: string) => void;
     onLogOut: () => void;
+    isLoading: boolean;
 };
 
 const variants: Variants = {
@@ -53,6 +55,7 @@ export const UserInfoNavbar: FunctionComponent<Props> = ({
     onLogInSubmit,
     userInfo,
     onLogOut,
+    isLoading,
 }) => {
     const { isShown, show, hide, dropdownRef } = useDropdown();
     const [isFocused, setFocused] = useState(false);
@@ -110,25 +113,29 @@ export const UserInfoNavbar: FunctionComponent<Props> = ({
                     if (
                         email.length === 0 &&
                         password.length === 0 &&
-                        !isFocused
+                        !isFocused &&
+                        !isLoading
                     )
                         hide();
                 }}
             >
-                <UserInfoNavbarTop
-                    isLogged={isLogged}
-                    topText={isShown ? 'Войти по почте' : 'Войти'}
-                />
-                <AnimatePresence>
-                    {isShown && (
-                        <UserInfoNavbarBottom
-                            isLogged={isLogged}
-                            onLogInSubmit={onLogInSubmit}
-                            onLogOut={onLogOut}
-                            email={userInfo.email}
-                        />
-                    )}
-                </AnimatePresence>
+                <WithLoader isLoading={isLoading && isShown}>
+                    <UserInfoNavbarTop
+                        isLogged={isLogged}
+                        topText={isShown ? 'Войти по почте' : 'Войти'}
+                    />
+                    <AnimatePresence>
+                        {isShown && (
+                            <UserInfoNavbarBottom
+                                disabled={isLoading}
+                                isLogged={isLogged}
+                                onLogInSubmit={onLogInSubmit}
+                                onLogOut={onLogOut}
+                                email={userInfo.email}
+                            />
+                        )}
+                    </AnimatePresence>
+                </WithLoader>
             </motion.div>
         </div>
     );

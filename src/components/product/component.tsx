@@ -7,6 +7,8 @@ import { Clamper } from '../uikit/clamper/component';
 import { LinkCustom } from '../uikit/link/component';
 import { motion } from 'framer-motion';
 import { shortenNumber } from '../../utils/shortenNumber';
+import { Button } from '../uikit/button/component';
+import { WithLoader } from '../uikit/withLoader/component';
 
 type Props = {
     id: string;
@@ -15,6 +17,7 @@ type Props = {
     rating: number;
     price: number;
     totalComments: number;
+    isLoading?: boolean;
     onAdd: () => void;
     onDelete: () => void;
 };
@@ -30,6 +33,7 @@ export const Product: FunctionComponent<Props> = ({
     onAdd,
     onDelete,
     price,
+    isLoading,
 }) => {
     const description =
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique perspiciatis illum officia consectetur vero aperiam corporis quae facere blanditiis ullam quasi, voluptate cumque placeat, ipsum officiis repudiandae doloremque enim? Modi!Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique perspiciatis illum officia consectetur vero aperiam corporis quae facere blanditiis ullam quasi, voluptate cumque placeat, ipsum officiis repudiandae doloremque enim? Modi!';
@@ -89,12 +93,26 @@ export const Product: FunctionComponent<Props> = ({
                     {shortenNumber(totalComments)}
                 </span>
             </div>
-            <Counter
-                className={styles['product-counter']}
-                onAdd={onAdd}
-                onDelete={onDelete}
-                initialValue={totalInCart}
-            />
+            <div className={styles['product-counter']}>
+                <WithLoader isLoading={isLoading ?? false}>
+                    {totalInCart > 0 ? (
+                        <Counter
+                            disabled={isLoading}
+                            onAdd={onAdd}
+                            onDelete={onDelete}
+                            initialValue={totalInCart}
+                        />
+                    ) : (
+                        <Button
+                            disabled={isLoading}
+                            onClick={onAdd}
+                            color='primary'
+                        >
+                            Добавить
+                        </Button>
+                    )}
+                </WithLoader>
+            </div>
         </motion.div>
     );
 };

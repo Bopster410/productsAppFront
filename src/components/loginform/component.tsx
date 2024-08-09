@@ -7,7 +7,10 @@ import { FormInput } from '../uikit/formInput/component';
 import { EyeButton } from '../uikit/button/templates';
 import { LogInFormDataContext } from '../../providers/loginForm/component';
 
-export const LogInForm: FunctionComponent<LogInFormProps> = ({ onSubmit }) => {
+export const LogInForm: FunctionComponent<LogInFormProps> = ({
+    onSubmit,
+    disabled,
+}) => {
     const { email, password, setPassword, setEmail, clearData } =
         useContext(LogInFormDataContext);
 
@@ -26,6 +29,7 @@ export const LogInForm: FunctionComponent<LogInFormProps> = ({ onSubmit }) => {
                 name='email'
                 placeholder='ваша почта'
                 value={email}
+                disabled={disabled}
             />
             <FormInput
                 InputComponent={Input}
@@ -35,11 +39,13 @@ export const LogInForm: FunctionComponent<LogInFormProps> = ({ onSubmit }) => {
                 type='password'
                 value={password}
                 ButtonComponent={EyeButton}
+                disabled={disabled}
             />
             <Button
                 size='xl'
                 type='submit'
                 color='primary'
+                disabled={disabled}
             >
                 Войти!
             </Button>

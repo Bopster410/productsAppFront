@@ -19,16 +19,19 @@ export const Button: FunctionComponent<Props> = ({
     children,
     color,
     size,
+    disabled,
     ...props
 }) => {
     return (
         <motion.button
             {...props}
+            disabled={disabled}
             whileTap={tapAnimation[color ?? 'primary']}
             className={classNames(
                 styles.button,
                 styles[`button_${color ?? 'primary'}`],
-                styles[`button_${size ?? 'normal'}`]
+                styles[`button_${size ?? 'normal'}`],
+                disabled ? styles['button_disabled'] : ''
             )}
         >
             {children}
