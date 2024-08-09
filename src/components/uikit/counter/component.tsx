@@ -7,6 +7,7 @@ import classNames from 'classnames';
 type Props = {
     initialValue: number;
     className?: string;
+    disabled?: boolean;
     onAdd: () => void;
     onDelete: () => void;
 };
@@ -15,6 +16,7 @@ export const Counter: FunctionComponent<Props> = ({
     initialValue,
     onAdd,
     onDelete,
+    disabled,
     className,
 }) => {
     return (
@@ -23,12 +25,20 @@ export const Counter: FunctionComponent<Props> = ({
                 className ? classNames(style.counter, className) : style.counter
             }
         >
-            <MinusButton onClick={onDelete} />
+            <MinusButton
+                disabled={disabled}
+                onClick={onDelete}
+            />
             <Input
+                disabled={disabled}
                 value={initialValue}
+                align='center'
                 readOnly
             />
-            <PlusButton onClick={onAdd} />
+            <PlusButton
+                disabled={disabled}
+                onClick={onAdd}
+            />
         </div>
     );
 };

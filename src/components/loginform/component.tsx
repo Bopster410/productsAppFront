@@ -1,12 +1,18 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { LogInFormProps } from './types';
 import { Button } from '../uikit/button/component';
 import { Input } from '../uikit/input/conponent';
 import styles from './style.module.scss';
+import { FormInput } from '../uikit/formInput/component';
+import { EyeButton } from '../uikit/button/templates';
+import { LogInFormDataContext } from '../../providers/loginForm/component';
 
-export const LogInForm: FunctionComponent<LogInFormProps> = ({ onSubmit }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+export const LogInForm: FunctionComponent<LogInFormProps> = ({
+    onSubmit,
+    disabled,
+}) => {
+    const { email, password, setPassword, setEmail, clearData } =
+        useContext(LogInFormDataContext);
 
     return (
         <form
@@ -14,23 +20,32 @@ export const LogInForm: FunctionComponent<LogInFormProps> = ({ onSubmit }) => {
             onSubmit={(event) => {
                 event.preventDefault();
                 onSubmit(email, password);
+                clearData();
             }}
         >
-            <Input
+            <FormInput
+                InputComponent={Input}
                 onChange={(event) => setEmail(event.target.value)}
                 name='email'
                 placeholder='ваша почта'
                 value={email}
+                disabled={disabled}
             />
-            <Input
+            <FormInput
+                InputComponent={Input}
                 onChange={(event) => setPassword(event.target.value)}
                 name='password'
                 placeholder='пароль'
+                type='password'
                 value={password}
+                ButtonComponent={EyeButton}
+                disabled={disabled}
             />
             <Button
+                size='xl'
                 type='submit'
                 color='primary'
+                disabled={disabled}
             >
                 Войти!
             </Button>

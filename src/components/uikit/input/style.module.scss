@@ -1,17 +1,32 @@
 .input {
+    outline: none;
     border: 2px solid var(--color-secondary-colored);
     border-radius: var(--border-radius-xs);
-    padding: 0px 10px;
     height: var(--button-height);
     background: #fff;
     box-sizing: border-box;
-    text-align: center;
     width: 100%;
     font-size: var(--font-size-paragraph);
     font-family: 'NunitoSans', sans-serif;
-    font-weight: bold;
+    font-weight: normal;
+    transition: var(--color-transition-duration) border-color;
+}
+
+.input:focus,
+.input:focus-visible {
+    border-color: var(--color-main-normal);
 }
 
 .input::placeholder {
     font-weight: lighter;
+}
+
+.input_align-left {
+    text-align: left;
+    padding: 0 var(--input-padding-right) 0 var(--input-padding-left);
+}
+
+.input_align-center {
+    text-align: center;
+    padding: 0 var(--input-padding-left);
 }

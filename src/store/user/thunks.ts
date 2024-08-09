@@ -10,11 +10,13 @@ import {
 
 export const logInUserThunk = createAsyncThunk<
     LogInUserThunkReturn,
-    LogInUserThunkArg
+    LogInUserThunkArg,
+    { state: RootState }
 >(
     'userInfo/logInUserThunk',
     async ({ email, password }: { email?: string; password?: string }, _) => {
         if (!email || !password) return;
+
         const response = await logInUserRequest(email, password);
         if (response.status !== 200) return;
         return { email: email, ...response.data };
@@ -22,21 +24,19 @@ export const logInUserThunk = createAsyncThunk<
 );
 
 export const logOutUserThunk = createAsyncThunk<
-    void,
+    string,
     void,
     { state: RootState }
 >(
     'userInfo/logOutUserThunk',
     async (_, { getState, fulfillWithValue, rejectWithValue }) => {
         const { isLogged } = getState().userInfo;
-        if (!isLogged) {
-            rejectWithValue('user is not logged in');
-            return;
-        }
+        if (!isLogged) return rejectWithValue('user is not logged in');
 
         const { status } = await logOutUserRequest();
-        if (status === 204) fulfillWithValue('success');
-        if (status !== 204) rejectWithValue('something went wrong');
+        if (status === 204) return fulfillWithValue('success');
+
+        return rejectWithValue('something went wrong');
     }
 );
 
@@ -50,21 +50,27 @@ export const addProductToCartThunk = createAsyncThunk<
         { axiosInstance, productId },
         { getState, fulfillWithValue, rejectWithValue }
     ) => {
-        const { isLogged } = getState().userInfo;
-        if (!isLogged) {
-            rejectWithValue('user is not logged in');
-            return;
+        const { isLogged, cartRequest } = getState().userInfo;
+        if (
+            (cartRequest?.status == 'pending' &&
+                cartRequest.productId != productId) ||
+            !isLogged
+        ) {
+            console.log('reject');
+            return rejectWithValue(productId);
         }
 
         const { status, data } = await addProductToCartRequest(
             axiosInstance,
             productId
         );
+
         if (status === 200 && data) {
-            fulfillWithValue('success');
-            return { productId, total: data.total };
+            console.log(status, data);
+            return fulfillWithValue({ productId, total: data.total });
         }
-        if (status !== 200) rejectWithValue('something went wrong');
+
+        return rejectWithValue(productId);
     }
 );
 export const removeProductFromCartThunk = createAsyncThunk<
@@ -77,20 +83,24 @@ export const removeProductFromCartThunk = createAsyncThunk<
         { axiosInstance, productId },
         { getState, fulfillWithValue, rejectWithValue }
     ) => {
-        const { isLogged } = getState().userInfo;
-        if (!isLogged) {
-            rejectWithValue('user is not logged in');
-            return;
-        }
+        const { isLogged, cartRequest } = getState().userInfo;
+        if (
+            (cartRequest?.status === 'pending' &&
+                cartRequest.productId !== productId) ||
+            !isLogged
+        )
+            return rejectWithValue(productId);
 
         const { status, data } = await removeProductFromCartRequest(
             axiosInstance,
             productId
         );
+
         if (status === 200 && data) {
-            fulfillWithValue('success');
-            return { productId, total: data.total };
+            console.log(status, data);
+            return fulfillWithValue({ productId, total: data.total });
         }
-        if (status !== 200) rejectWithValue('something went wrong');
+
+        return rejectWithValue(productId);
     }
 );

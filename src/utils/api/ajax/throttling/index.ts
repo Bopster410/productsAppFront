@@ -1,3 +1,6 @@
+import { DEFAULT_HANDLE_AFTER, DEFAULT_HANDLE_FOR } from './index.constants';
+import { HandleLongRequestConfig } from './index.types';
+
 export function throttle<Args>(func: (args?: Args) => void, delay: number) {
     let timeFlag: NodeJS.Timeout | null = null;
     let lastCall: Args | undefined = undefined;
@@ -28,14 +31,16 @@ export function throttle<Args>(func: (args?: Args) => void, delay: number) {
     };
 }
 
-export function animateLongRequest<Args, Return>(
+export function handleLongRequest<Args, Return>(
     request: (args?: Args) => Promise<Return>,
-    thenFunc: (args?: Return) => void,
-    catchFunc: (args?: Return) => void,
-    startAnimation: () => void,
-    stopAnimation: () => void,
-    animateAfter: number,
-    animateFor: number
+    handleLongFunc: () => void,
+    stopHandleFunc: () => void,
+    {
+        handleAfter,
+        handleFor,
+        thenFunc,
+        catchFunc,
+    }: HandleLongRequestConfig<Return> = {}
 ) {
     let timeFlag: NodeJS.Timeout | null = null;
     let isRequestCompleted = false;
@@ -45,9 +50,9 @@ export function animateLongRequest<Args, Return>(
             timeFlag = setTimeout(() => {
                 timeFlag = null;
                 if (!isRequestCompleted) {
-                    startAnimation();
+                    handleLongFunc();
                 }
-            }, animateAfter);
+            }, handleAfter ?? DEFAULT_HANDLE_AFTER);
 
             request(args)
                 .then((response: Return) => {
@@ -56,19 +61,21 @@ export function animateLongRequest<Args, Return>(
                     // if animation started
                     if (timeFlag === null) {
                         setTimeout(() => {
-                            stopAnimation();
-                            thenFunc(response);
-                        }, animateFor);
+                            stopHandleFunc();
+                            if (thenFunc) {
+                                thenFunc(response);
+                            }
+                        }, handleFor ?? DEFAULT_HANDLE_FOR);
                     }
 
                     if (timeFlag !== null) {
-                        stopAnimation();
-                        thenFunc(response);
+                        stopHandleFunc();
+                        if (thenFunc) thenFunc(response);
                     }
                 })
                 .catch((response: Return) => {
-                    stopAnimation();
-                    catchFunc(response);
+                    stopHandleFunc();
+                    if (catchFunc) catchFunc(response);
                 });
         }
     };

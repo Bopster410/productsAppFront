@@ -1,4 +1,4 @@
-const MODE = import.meta.env.DEPLOY_MODE;
+const MODE = import.meta.env.VITE_DEPLOY_MODE;
 
 const BACKEND_DOMAIN = 'productsapp-54xs.onrender.com/api';
 

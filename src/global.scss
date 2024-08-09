@@ -13,21 +13,36 @@ $container-max-width-xxl: 1536px;
     --font-size-h5: 24px;
     --font-size-h6: 20px;
     --font-size-paragraph: 16px;
+    --font-size-paragraph-sm: 12px;
 
     --button-height: 36px;
+    --button-height-xl: 48px;
+    --button-height-sm: 24px;
+    --button-height-xs: 12px;
+
+    --input-padding-left: 16px;
+    --input-padding-right: 10px;
 
     --border-radius-xs: 8px;
     --border-radius-sm: 16px;
     --border-radius-md: 32px;
 
-    --color-main-dark: #373f47;
     --color-main-normal: #6c91c2;
+    --color-main-normal-darker: #8294ac;
     --color-main-normal-lighter: #9ab4d5;
     --color-main-light: #c3c9e9;
     --color-main-bg: #f1f1f7;
     --color-main-bg-lighter: #ebebf4;
+    --color-main-red: #cd3232;
+    --color-main-red-darker: #bf4040;
+    --color-main-red-lighter: #e85555;
+    --color-main-success: #06826b;
     --color-secondary-grey: #8b8982;
     --color-secondary-colored: #aaabbc;
+    --color-basic-black: #000;
+    --color-basic-black-lighter: #373f47;
+    --color-basic-white: #fff;
+    --color-basic-white-darker: #dcdcdc;
 
     --color-transition-duration: 0.2s;
 
@@ -46,6 +61,10 @@ body {
 %text-base {
     font-family: 'NunitoSans', sans-serif;
     color: black;
+}
+
+.abs {
+    position: absolute;
 }
 
 .p {
