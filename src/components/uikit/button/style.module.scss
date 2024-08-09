@@ -33,18 +33,23 @@
 
 // Primary
 .button_primary {
-    color: #fff;
+    color: var(--color-basic-white);
     background-color: var(--color-main-normal);
     transition: background-color var(--color-transition-duration);
 }
-
 .button_primary:hover {
     background-color: var(--color-main-normal-lighter);
 }
 
+.button_primary.button_disabled {
+    color: var(--color-basic-white-darker);
+    background-color: var(--color-main-normal-darker);
+    pointer-events: none;
+}
+
 // Red
 .button_red {
-    color: #fff;
+    color: var(--color-basic-white);
     background-color: var(--color-main-red);
     transition: background-color var(--color-transition-duration);
 }
@@ -53,15 +58,27 @@
     background-color: var(--color-main-red-lighter);
 }
 
+.button_red.button_disabled {
+    color: var(--color-basic-white-darker);
+    background-color: var(--color-main-red-darker);
+    pointer-events: none;
+}
+
 // Secondary
 .button_white {
-    color: var(--color-main-dark);
-    background-color: white;
+    color: var(--color-basic-black);
+    background-color: var(--color-basic-white);
     transition: background-color var(--color-transition-duration);
 }
 
 .button_white:hover {
     background-color: var(--color-main-bg);
+}
+
+.button_white.button_disabled {
+    color: var(--color-basic-black-lighter);
+    background-color: var(--color-basic-white-darker);
+    pointer-events: none;
 }
 
 // Outline
@@ -73,4 +90,10 @@
 
 .button_secondary:hover {
     background-color: var(--color-main-bg);
+}
+
+.button_secondary.button_disabled {
+    color: var(--color-secondary-grey);
+    background-color: var(--color-main-bg);
+    pointer-events: none;
 }

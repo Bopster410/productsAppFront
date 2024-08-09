@@ -8,6 +8,7 @@ import styles from './style.module.scss';
 type Props = {
     isLogged: boolean;
     email?: string;
+    disabled?: boolean;
     onLogOut: () => void;
     onLogInSubmit: (email?: string, password?: string) => void;
 };
@@ -17,6 +18,7 @@ export const UserInfoNavbarBottom: FunctionComponent<Props> = ({
     email,
     onLogInSubmit,
     onLogOut,
+    disabled,
 }) => {
     return (
         <div
@@ -30,6 +32,7 @@ export const UserInfoNavbarBottom: FunctionComponent<Props> = ({
                 authorized={
                     <>
                         <UserInfo
+                            disabled={disabled}
                             email={email}
                             onLogOut={onLogOut}
                         />
@@ -48,7 +51,12 @@ export const UserInfoNavbarBottom: FunctionComponent<Props> = ({
                         </span> */}
                     </>
                 }
-                notAuthorized={<LogInForm onSubmit={onLogInSubmit} />}
+                notAuthorized={
+                    <LogInForm
+                        disabled={disabled}
+                        onSubmit={onLogInSubmit}
+                    />
+                }
             />
         </div>
     );

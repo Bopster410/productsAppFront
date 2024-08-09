@@ -10,9 +10,13 @@ type Tokens = {
     refreshToken: string;
 };
 
+type RequestStatus = 'pending' | 'fulfilled' | 'rejected' | null;
+
 type Cart = Indexed<number>;
 
 export type State = {
+    authRequestStatus: RequestStatus;
+    cartRequest: { productId: string; status: RequestStatus } | null;
     userInfo: UserInfo | null;
     tokens: Tokens | null;
     cart: Cart;

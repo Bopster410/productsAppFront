@@ -5,10 +5,15 @@ import classNames from 'classnames';
 
 type Props = {
     email?: string;
+    disabled?: boolean;
     onLogOut: () => void;
 };
 
-export const UserInfo: FunctionComponent<Props> = ({ email, onLogOut }) => {
+export const UserInfo: FunctionComponent<Props> = ({
+    email,
+    onLogOut,
+    disabled,
+}) => {
     return (
         <div className={styles['user-info']}>
             <div className={styles['user-info-main-data']}>
@@ -33,6 +38,7 @@ export const UserInfo: FunctionComponent<Props> = ({ email, onLogOut }) => {
                 )}
             </div>
             <Button
+                disabled={disabled}
                 onClick={onLogOut}
                 color='red'
                 size='sm'
