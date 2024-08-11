@@ -17,6 +17,7 @@ type Props = {
     rating: number;
     price: number;
     totalComments: number;
+    description: string;
     isLoading?: boolean;
     onAdd: () => void;
     onDelete: () => void;
@@ -33,10 +34,9 @@ export const Product: FunctionComponent<Props> = ({
     onAdd,
     onDelete,
     price,
+    description,
     isLoading,
 }) => {
-    const description =
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique perspiciatis illum officia consectetur vero aperiam corporis quae facere blanditiis ullam quasi, voluptate cumque placeat, ipsum officiis repudiandae doloremque enim? Modi!Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique perspiciatis illum officia consectetur vero aperiam corporis quae facere blanditiis ullam quasi, voluptate cumque placeat, ipsum officiis repudiandae doloremque enim? Modi!';
     return (
         <motion.div
             whileHover={{ scale: 1.01, boxShadow: 'var(--shadow)' }}

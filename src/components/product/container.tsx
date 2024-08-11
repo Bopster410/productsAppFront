@@ -13,10 +13,21 @@ import { handleLongRequest } from '../../utils/api/ajax/throttling';
 type Props = {
     id: string;
     name: string;
+    price: number;
+    totalComments: number;
+    description: string;
+    rating: number;
 };
 export type { Props as ProductContainerProps };
 
-export const ProductContainer: FunctionComponent<Props> = ({ id, name }) => {
+export const ProductContainer: FunctionComponent<Props> = ({
+    id,
+    name,
+    price,
+    rating,
+    totalComments,
+    description,
+}) => {
     const [isLoading, setLoading] = useState(false);
 
     const axiosInstance = usePrivateRequest();
@@ -60,9 +71,10 @@ export const ProductContainer: FunctionComponent<Props> = ({ id, name }) => {
             onAdd={handleIncrement}
             onDelete={handleDecrement}
             totalInCart={totalInCart}
-            price={1000}
-            totalComments={10000}
-            rating={4.5}
+            price={price}
+            totalComments={totalComments}
+            rating={rating}
+            description={description}
         />
     );
 };
