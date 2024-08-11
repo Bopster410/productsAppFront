@@ -19,9 +19,25 @@ export const ProductsContainter = () => {
                     if (!response) return;
 
                     const newProducts = [...products];
-                    response.data?.forEach(({ productId, name }) => {
-                        newProducts.push({ id: productId, name });
-                    });
+                    response.data?.forEach(
+                        ({
+                            productId,
+                            name,
+                            rating,
+                            description,
+                            totalComments,
+                            price,
+                        }) => {
+                            newProducts.push({
+                                id: productId,
+                                name,
+                                rating,
+                                totalComments,
+                                description,
+                                price,
+                            });
+                        }
+                    );
                     setProducts(newProducts);
                 },
                 handleAfter: 500,

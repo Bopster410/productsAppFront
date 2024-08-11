@@ -7,6 +7,10 @@ export const ProductByIdContainer: FunctionComponent<{ id: string }> = ({
     id,
 }) => {
     const [name, setName] = useState('');
+    const [price, setPrice] = useState(0);
+    const [description, setDescription] = useState('');
+    const [rating, setRating] = useState(0);
+    const [totalComments, setTotalComments] = useState(0);
     const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -17,7 +21,12 @@ export const ProductByIdContainer: FunctionComponent<{ id: string }> = ({
             {
                 thenFunc: (response) => {
                     if (response?.data === undefined) return;
-                    setName(response.data?.name);
+
+                    setName(response.data.name);
+                    setPrice(response.data.price);
+                    setDescription(response.data.description);
+                    setRating(response.data.rating);
+                    setTotalComments(response.data.totalComments);
                 },
                 handleAfter: 500,
                 handleFor: 1000,
@@ -34,6 +43,10 @@ export const ProductByIdContainer: FunctionComponent<{ id: string }> = ({
                 <ProductContainer
                     id={id}
                     name={name}
+                    price={price}
+                    totalComments={totalComments}
+                    rating={rating}
+                    description={description}
                 />
             )}
         </WithLoader>
