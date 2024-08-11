@@ -1,14 +1,9 @@
-import { forwardRef, MouseEventHandler } from 'react';
+import { FunctionComponent } from 'react';
 import { MenuButton } from '../uikit/button/templates';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { MenuItems } from '../menuItems/component';
 import style from './style.module.scss';
-
-type Props = {
-    isShown: boolean;
-    onMenuButtonClick: MouseEventHandler<HTMLButtonElement>;
-    onLinkClick: () => void;
-};
+import { useDropdown } from '../../hooks/useDropdown';
 
 const items = [
     {
@@ -49,26 +44,54 @@ const items = [
     },
 ];
 
-export const Menu = forwardRef<HTMLDivElement, Props>(
-    ({ onMenuButtonClick, onLinkClick, isShown }, ref) => {
-        return (
-            <div>
-                <MenuButton
-                    color='secondary'
-                    onClick={onMenuButtonClick}
-                />
-                <AnimatePresence>
-                    {isShown && (
-                        <div className={style['menu-items-container']}>
-                            <MenuItems
-                                ref={ref}
-                                items={items}
-                                onLinkClick={onLinkClick}
-                            />
-                        </div>
-                    )}
-                </AnimatePresence>
-            </div>
-        );
-    }
-);
+const variants: Variants = {
+    opened: {
+        clipPath: 'inset(-10% -10% -10% -10% round var(--border-radius-sm))',
+        transition: {
+            type: 'spring',
+            bounce: 0,
+            duration: 0.4,
+        },
+    },
+    closed: {
+        clipPath: 'inset(10% 100% 100% 10% round var(--border-radius-sm))',
+        transition: {
+            type: 'spring',
+            bounce: 0,
+            duration: 0.4,
+        },
+    },
+};
+
+export const Menu: FunctionComponent = () => {
+    const { dropdownRef, isShown, hide, toggle } = useDropdown();
+    return (
+        <motion.div>
+            <MenuButton
+                isShown={isShown}
+                color='white'
+                onClick={(event) => {
+                    event.stopPropagation();
+                    toggle();
+                }}
+            />
+            <AnimatePresence>
+                {isShown && (
+                    <motion.div
+                        variants={variants}
+                        initial='closed'
+                        animate='opened'
+                        exit='closed'
+                        ref={dropdownRef}
+                        className={style['menu-items-container']}
+                    >
+                        <MenuItems
+                            items={items}
+                            onLinkClick={hide}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
+    );
+};

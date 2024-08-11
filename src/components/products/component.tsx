@@ -9,15 +9,22 @@ export const Products: FunctionComponent<{
         <List
             wrap
             direction='row'
-            items={products.map(({ id, name }) => () => ({
-                node: (
-                    <ProductContainer
-                        id={id}
-                        name={name}
-                    />
-                ),
-                key: id,
-            }))}
+            items={products.map(
+                ({ id, name, rating, price, description, totalComments }) =>
+                    () => ({
+                        node: (
+                            <ProductContainer
+                                id={id}
+                                name={name}
+                                rating={rating}
+                                price={price}
+                                description={description}
+                                totalComments={totalComments}
+                            />
+                        ),
+                        key: id,
+                    })
+            )}
         />
     );
 };

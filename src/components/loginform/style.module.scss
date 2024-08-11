@@ -1,5 +1,9 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
+}
+
+button[type='submit'] {
+    margin-top: 8px;
 }

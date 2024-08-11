@@ -14,6 +14,8 @@ export const userInfoSlice = createSlice({
         tokens: null,
         isLogged: false,
         cart: {},
+        authRequestStatus: null,
+        cartRequest: null,
     } as State,
     reducers: {
         setAccessToken: (state, action: PayloadAction<string>) => {
@@ -30,7 +32,15 @@ export const userInfoSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(logInUserThunk.pending, (state) => {
+                state.authRequestStatus = 'pending';
+            })
+            .addCase(logInUserThunk.rejected, (state) => {
+                state.authRequestStatus = 'rejected';
+            })
             .addCase(logInUserThunk.fulfilled, (state, { payload }) => {
+                state.authRequestStatus = 'fulfilled';
+
                 if (
                     payload === undefined ||
                     payload.accessToken === undefined ||
@@ -50,20 +60,51 @@ export const userInfoSlice = createSlice({
                     ({ productId, total }) => (state.cart[productId] = total)
                 );
             })
+            .addCase(logOutUserThunk.pending, (state) => {
+                state.authRequestStatus = 'pending';
+            })
+            .addCase(logOutUserThunk.rejected, (state) => {
+                state.authRequestStatus = 'rejected';
+            })
             .addCase(logOutUserThunk.fulfilled, (state) => {
+                state.authRequestStatus = 'fulfilled';
                 state.isLogged = false;
                 state.tokens = null;
                 state.userInfo = null;
                 state.cart = {};
             })
+            .addCase(addProductToCartThunk.pending, (state, { meta }) => {
+                const { productId } = meta.arg;
+                state.cartRequest = { productId, status: 'pending' };
+            })
+            .addCase(addProductToCartThunk.rejected, (state, { meta }) => {
+                const { productId } = meta.arg;
+                state.cartRequest = { productId, status: 'rejected' };
+            })
             .addCase(addProductToCartThunk.fulfilled, (state, { payload }) => {
                 if (!payload) return;
+                state.cartRequest = {
+                    productId: payload.productId,
+                    status: 'fulfilled',
+                };
                 state.cart[payload.productId] = payload.total;
+            })
+            .addCase(removeProductFromCartThunk.pending, (state, { meta }) => {
+                const { productId } = meta.arg;
+                state.cartRequest = { productId, status: 'pending' };
+            })
+            .addCase(removeProductFromCartThunk.rejected, (state, { meta }) => {
+                const { productId } = meta.arg;
+                state.cartRequest = { productId, status: 'rejected' };
             })
             .addCase(
                 removeProductFromCartThunk.fulfilled,
                 (state, { payload }) => {
                     if (!payload) return;
+                    state.cartRequest = {
+                        productId: payload.productId,
+                        status: 'fulfilled',
+                    };
                     state.cart[payload.productId] = payload.total;
                 }
             );
