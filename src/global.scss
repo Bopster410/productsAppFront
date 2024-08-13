@@ -67,6 +67,12 @@ body {
     position: absolute;
 }
 
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .p {
     @extend %text-base;
     font-size: var(--font-size-paragraph);

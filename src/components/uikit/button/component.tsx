@@ -6,6 +6,7 @@ import { HTMLMotionProps, motion } from 'framer-motion';
 interface Props extends HTMLMotionProps<'button'> {
     color?: 'primary' | 'white' | 'secondary' | 'red';
     size?: 'xs' | 'sm' | 'normal' | 'xl';
+    width?: string;
 }
 
 const tapAnimation = {
@@ -20,6 +21,8 @@ export const Button: FunctionComponent<Props> = ({
     color,
     size,
     disabled,
+    width,
+    style,
     ...props
 }) => {
     return (
@@ -33,6 +36,7 @@ export const Button: FunctionComponent<Props> = ({
                 styles[`button_${size ?? 'normal'}`],
                 disabled ? styles['button_disabled'] : ''
             )}
+            style={Object.assign({ ...style }, { width: width ?? 'auto' })}
         >
             {children}
         </motion.button>
