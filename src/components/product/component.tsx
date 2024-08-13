@@ -101,12 +101,14 @@ export const Product: FunctionComponent<Props> = ({
                             onAdd={onAdd}
                             onDelete={onDelete}
                             initialValue={totalInCart}
+                            width='100%'
                         />
                     ) : (
                         <Button
                             disabled={isLoading}
                             onClick={onAdd}
                             color='primary'
+                            width='100%'
                         >
                             Добавить
                         </Button>
