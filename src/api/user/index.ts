@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios';
-import { ajaxPost } from '../../utils/api';
+import { ajaxPost } from '@/utils/api';
 import { USER_URLS } from './urls';
-import { ajaxCustomAxios } from '../../utils/api/ajax';
-import { Methods } from '../../utils/api/ajax/index.constants';
+import { ajaxCustomAxios } from '@/utils/api/ajax';
+import { Methods } from '@/utils/api/ajax/index.constants';
 import { CartResponse, ChangeCartResponse } from './types';
 
 export function createUserRequest(email: string, password: string) {

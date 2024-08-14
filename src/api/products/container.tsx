@@ -1,8 +1,8 @@
 import { FunctionComponent, useEffect, useState } from 'react';
-import { ProductContainer } from '../../components/product/container';
+import { ProductContainer } from '@/components/product/container';
 import { getProductById } from '.';
-import { handleLongRequest } from '../../utils/api/ajax/throttling';
-import { WithLoader } from '../../components/uikit/withLoader/component';
+import { handleLongRequest } from '@/utils/api/ajax/throttling';
+import { WithLoader } from '@/uikit/withLoader/component';
 export const ProductByIdContainer: FunctionComponent<{ id: string }> = ({
     id,
 }) => {

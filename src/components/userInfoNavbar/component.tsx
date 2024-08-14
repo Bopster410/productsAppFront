@@ -8,11 +8,11 @@ import {
 import styles from './style.module.scss';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import classNames from 'classnames';
-import { useDropdown } from '../../hooks/useDropdown';
+import { useDropdown } from '@/hooks/useDropdown';
 import { LogInFormDataContext } from '../../providers/loginForm/component';
 import { UserInfoNavbarTop } from './userInfoNavbarTop/component';
 import { UserInfoNavbarBottom } from './userInfoNavbarBottom/component';
-import { WithLoader } from '../uikit/withLoader/component';
+import { WithLoader } from '@/uikit/withLoader/component';
 
 const USER_LOGGED_IN_TOP_HEIGHT = 50;
 const USER_LOGGED_OUT_TOP_HEIGHT = 32;

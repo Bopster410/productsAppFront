@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LogInUserThunkArg, LogInUserThunkReturn } from './types';
 import { logInUserRequest, logOutUserRequest } from '../../api/auth';
-import { RootState } from '../../store';
+import { RootState } from '@/store';
 import { AxiosInstance } from 'axios';
 import {
     addProductToCartRequest,

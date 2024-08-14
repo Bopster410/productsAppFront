@@ -1,4 +1,4 @@
-import { useLoginUser } from '../../hooks/useLoginUser';
+import { useLoginUser } from '@/hooks/useLoginUser';
 import { LogInFormDataProvider } from '../../providers/loginForm/component';
 import { UserInfoNavbar } from './component';
 

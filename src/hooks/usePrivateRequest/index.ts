@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTokens, setAccessToken } from '../../store/user';
-import { RootState } from '../../store';
+import { selectTokens, setAccessToken } from '@/store/user';
+import { RootState } from '@/store';
 import { useEffect } from 'react';
-import { axoisPrivate } from '../../utils/api/ajax';
+import { axoisPrivate } from '@/utils/api/ajax';
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { refreshAccessTokenRequest } from '../../api/auth';
 

@@ -1,14 +1,14 @@
 import { FunctionComponent, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../../store';
-import { Product } from './component';
+import { RootState, useAppDispatch } from '@/store';
+import { Product, ProductProps } from './component';
 import {
     addProductToCartThunk,
     removeProductFromCartThunk,
-} from '../../store/user/thunks';
-import { usePrivateRequest } from '../../hooks/usePrivateRequest';
-import { selectCartItemById } from '../../store/user';
-import { handleLongRequest } from '../../utils/api/ajax/throttling';
+} from '@/store/user/thunks';
+import { usePrivateRequest } from '@/hooks/usePrivateRequest';
+import { selectCartItemById } from '@/store/user';
+import { handleLongRequest } from '@/utils/api/ajax/throttling';
 
 type Props = {
     id: string;
@@ -17,6 +17,7 @@ type Props = {
     totalComments: number;
     description: string;
     rating: number;
+    ProductCard?: React.ComponentType<ProductProps>;
 };
 export type { Props as ProductContainerProps };
 
@@ -27,6 +28,7 @@ export const ProductContainer: FunctionComponent<Props> = ({
     rating,
     totalComments,
     description,
+    ProductCard = Product,
 }) => {
     const [isLoading, setLoading] = useState(false);
 
@@ -64,7 +66,7 @@ export const ProductContainer: FunctionComponent<Props> = ({
         useSelector((state: RootState) => selectCartItemById(state, id)) ?? 0;
 
     return (
-        <Product
+        <ProductCard
             name={name}
             isLoading={isLoading}
             id={id}

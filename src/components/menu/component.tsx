@@ -1,9 +1,9 @@
 import { FunctionComponent } from 'react';
-import { MenuButton } from '../uikit/button/templates';
+import { MenuButton } from '@/uikit/button/templates';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { MenuItems } from '../menuItems/component';
 import style from './style.module.scss';
-import { useDropdown } from '../../hooks/useDropdown';
+import { useDropdown } from '@/hooks/useDropdown';
 
 const items = [
     {

@@ -1,6 +1,6 @@
 import { FunctionComponent, ReactNode } from 'react';
 import { MenuItem } from '../menuItem/component';
-import { List } from '../uikit/list/component';
+import { List } from '@/uikit/list/component';
 
 type Props = {
     items: { name: string; href: string; icon: () => ReactNode }[];

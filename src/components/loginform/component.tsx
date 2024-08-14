@@ -1,10 +1,10 @@
 import { FunctionComponent, useContext } from 'react';
 import { LogInFormProps } from './types';
-import { Button } from '../uikit/button/component';
-import { Input } from '../uikit/input/conponent';
+import { Button } from '@/uikit/button/component';
+import { Input } from '@/uikit/input/conponent';
 import styles from './style.module.scss';
-import { FormInput } from '../uikit/formInput/component';
-import { EyeButton } from '../uikit/button/templates';
+import { FormInput } from '@/uikit/formInput/component';
+import { EyeButton } from '@/uikit/button/templates';
 import { LogInFormDataContext } from '../../providers/loginForm/component';
 
 export const LogInForm: FunctionComponent<LogInFormProps> = ({

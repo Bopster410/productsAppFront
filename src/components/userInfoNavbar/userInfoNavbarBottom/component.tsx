@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react';
 import { LogInForm } from '../../loginform/component';
-// import { OptionsButton } from '../../uikit/button/templates';
+// import { OptionsButton } from '../@/uikit/button/templates';
 import { UserInfo } from '../../userInfo/component';
-import { WithAuthorization } from '../../uikit/withAuthorization/component';
+import { WithAuthorization } from '@/uikit/withAuthorization/component';
 import styles from './style.module.scss';
 
 type Props = {
