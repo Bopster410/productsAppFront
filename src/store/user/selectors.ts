@@ -1,4 +1,4 @@
-import { RootState } from '../../store';
+import { RootState } from '@/store';
 import { State } from './types';
 
 export const isUserLogged = (state: RootState) => {

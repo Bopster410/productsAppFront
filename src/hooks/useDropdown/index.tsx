@@ -1,6 +1,6 @@
 import { useCycle } from 'framer-motion';
 import { useEffect, useRef } from 'react';
-import { isClickOut } from '../../utils/clickOut';
+import { isClickOut } from '@/utils/clickOut';
 
 export function useDropdown() {
     const [isShown, toggleShown] = useCycle(false, true);

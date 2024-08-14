@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { Products } from '../products/component';
 import { ProductContainerProps } from '../product/container';
 import { getUserCart } from '../../api/user';
-import { usePrivateRequest } from '../../hooks/usePrivateRequest';
+import { usePrivateRequest } from '@/hooks/usePrivateRequest';
 import { useSelector } from 'react-redux';
-import { isUserLogged } from '../../store/user';
-import { RootState } from '../../store';
-import { handleLongRequest } from '../../utils/api/ajax/throttling';
-import { WithLoader } from '../uikit/withLoader/component';
+import { isUserLogged } from '@/store/user';
+import { RootState } from '@/store';
+import { handleLongRequest } from '@/utils/api/ajax/throttling';
+import { WithLoader } from '@/uikit/withLoader/component';
 
 export const CartContainer = () => {
     const navigate = useNavigate();

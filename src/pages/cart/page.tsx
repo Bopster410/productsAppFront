@@ -1,4 +1,4 @@
-import { CartContainer } from '../../components/cart/container';
+import { CartContainer } from '@/components/cart/container';
 
 export const CartPage = () => {
     return <CartContainer />;

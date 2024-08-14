@@ -1,5 +1,5 @@
 import { CartProductIdsResponse } from '../../api/user/types';
-import { Indexed } from '../../store';
+import { Indexed } from '@/store';
 
 type UserInfo = {
     email: string;

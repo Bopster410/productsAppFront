@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { ProductContainer, ProductContainerProps } from '../product/container';
-import { List } from '../uikit/list/component';
+import { List } from '@/uikit/list/component';
 
 export const Products: FunctionComponent<{
     products: ProductContainerProps[];

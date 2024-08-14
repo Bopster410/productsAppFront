@@ -1,14 +1,14 @@
 import { FunctionComponent } from 'react';
-import { Counter } from '../uikit/counter/component';
+import { Counter } from '@/uikit/counter/component';
 import styles from './style.module.scss';
 import placeholderUrl from './placeholder.jpg';
 import classNames from 'classnames';
-import { Clamper } from '../uikit/clamper/component';
-import { LinkCustom } from '../uikit/link/component';
+import { Clamper } from '@/uikit/clamper/component';
+import { LinkCustom } from '@/uikit/link/component';
 import { motion } from 'framer-motion';
-import { shortenNumber } from '../../utils/shortenNumber';
-import { Button } from '../uikit/button/component';
-import { WithLoader } from '../uikit/withLoader/component';
+import { shortenNumber } from '@/utils/shortenNumber';
+import { Button } from '@/uikit/button/component';
+import { WithLoader } from '@/uikit/withLoader/component';
 
 type Props = {
     id: string;

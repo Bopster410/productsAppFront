@@ -63,6 +63,14 @@ body {
     color: black;
 }
 
+.b-rad-md {
+    border-radius: var(--border-radius-md);
+}
+
+.b-rad-sm {
+    border-radius: var(--border-radius-sm);
+}
+
 .abs {
     position: absolute;
 }
