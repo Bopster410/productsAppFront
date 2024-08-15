@@ -11,6 +11,7 @@ type Props = {
     className?: string;
     disabled?: boolean;
     width?: string;
+    size?: 'normal' | 'xl';
     onAdd: () => void;
     onDelete: () => void;
 };
@@ -21,6 +22,7 @@ export const Counter: FunctionComponent<Props> = ({
     onDelete,
     disabled,
     width,
+    size,
     className,
 }) => {
     return (
@@ -33,14 +35,17 @@ export const Counter: FunctionComponent<Props> = ({
             <MinusButton
                 disabled={disabled}
                 onClick={onDelete}
+                size={size}
             />
             <Input
                 disabled={disabled}
                 value={initialValue}
                 align='center'
+                inputSize={size}
                 readOnly
             />
             <PlusButton
+                size={size}
                 disabled={disabled}
                 onClick={onAdd}
             />

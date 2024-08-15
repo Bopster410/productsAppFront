@@ -2,7 +2,6 @@
     outline: none;
     border: 2px solid var(--color-secondary-colored);
     border-radius: var(--border-radius-xs);
-    height: var(--button-height);
     background: #fff;
     box-sizing: border-box;
     width: 100%;
@@ -29,4 +28,12 @@
 .input_align-center {
     text-align: center;
     padding: 0 var(--input-padding-left);
+}
+
+.input_normal {
+    height: var(--button-height);
+}
+
+.input_xl {
+    height: var(--button-height-xl);
 }

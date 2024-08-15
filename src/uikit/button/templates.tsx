@@ -4,7 +4,10 @@ import { motion, SVGMotionProps } from 'framer-motion';
 
 export const PlusButton: FunctionComponent<ButtonProps> = (props) => {
     return (
-        <Button {...props}>
+        <Button
+            square
+            {...props}
+        >
             <svg
                 width='12'
                 height='12'
@@ -26,7 +29,10 @@ export const PlusButton: FunctionComponent<ButtonProps> = (props) => {
 
 export const MinusButton: FunctionComponent<ButtonProps> = (props) => {
     return (
-        <Button {...props}>
+        <Button
+            square
+            {...props}
+        >
             <svg
                 width='12'
                 height='2'
