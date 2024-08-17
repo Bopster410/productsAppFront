@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { BrowserRouter } from 'react-router-dom';
+import { BACKEND_URL } from '@/utils/api/config/index.constants';
 
 expect.extend(matchers);
 
@@ -47,7 +48,7 @@ export function renderWithProviders(
 
 // Mockup server setup
 const handlers = [
-    http.get('http://localhost:3030/api/products/:id', () => {
+    http.get(`${BACKEND_URL}/products/:id`, () => {
         return HttpResponse.json({
             productId: 'mdf34ghj23',
             name: 'Bose QuietComfort 45',
@@ -58,37 +59,31 @@ const handlers = [
             totalComments: 900,
         });
     }),
-    http.post('http://localhost:3030/api/auth/login', () => {
+    http.post(`${BACKEND_URL}/auth/login`, () => {
         return HttpResponse.json({
             accessToken: 'access',
             refreshToken: 'refresh',
             cart: [],
         });
     }),
-    http.post(
-        'http://localhost:3030/api/users/cart/add',
-        async ({ request }) => {
-            const cart: Indexed<number> = {
-                mdf34ghj23: 1,
-                fdaassdc21: 2,
-            };
-            const product = (await request.json()) as { productId: string };
+    http.post(`${BACKEND_URL}/users/cart/add`, async ({ request }) => {
+        const cart: Indexed<number> = {
+            mdf34ghj23: 1,
+            fdaassdc21: 2,
+        };
+        const product = (await request.json()) as { productId: string };
 
-            return HttpResponse.json({ total: cart[product.productId] ?? 0 });
-        }
-    ),
-    http.post(
-        'http://localhost:3030/api/users/cart/remove',
-        async ({ request }) => {
-            const cart: Indexed<number> = {
-                fdaassdc21: 0,
-                ghsyt234as: 1,
-            };
-            const product = (await request.json()) as { productId: string };
+        return HttpResponse.json({ total: cart[product.productId] ?? 0 });
+    }),
+    http.post(`${BACKEND_URL}/users/cart/remove`, async ({ request }) => {
+        const cart: Indexed<number> = {
+            fdaassdc21: 0,
+            ghsyt234as: 1,
+        };
+        const product = (await request.json()) as { productId: string };
 
-            return HttpResponse.json({ total: cart[product.productId] ?? 0 });
-        }
-    ),
+        return HttpResponse.json({ total: cart[product.productId] ?? 0 });
+    }),
 ];
 
 const server = setupServer(...handlers);
