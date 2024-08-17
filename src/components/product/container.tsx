@@ -9,6 +9,7 @@ import {
 import { usePrivateRequest } from '@/hooks/usePrivateRequest';
 import { selectCartItemById } from '@/store/user';
 import { handleLongRequest } from '@/utils/api/ajax/throttling';
+import { ProductOpenGraph } from './og';
 
 type Props = {
     id: string;
@@ -66,17 +67,23 @@ export const ProductContainer: FunctionComponent<Props> = ({
         useSelector((state: RootState) => selectCartItemById(state, id)) ?? 0;
 
     return (
-        <ProductCard
-            name={name}
-            isLoading={isLoading}
-            id={id}
-            onAdd={handleIncrement}
-            onDelete={handleDecrement}
-            totalInCart={totalInCart}
-            price={price}
-            totalComments={totalComments}
-            rating={rating}
-            description={description}
-        />
+        <>
+            <ProductOpenGraph
+                name={name}
+                description={description}
+            />
+            <ProductCard
+                name={name}
+                isLoading={isLoading}
+                id={id}
+                onAdd={handleIncrement}
+                onDelete={handleDecrement}
+                totalInCart={totalInCart}
+                price={price}
+                totalComments={totalComments}
+                rating={rating}
+                description={description}
+            />
+        </>
     );
 };
