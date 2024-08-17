@@ -1,4 +1,4 @@
-import { ajaxGet } from '../../utils/api';
+import { ajaxGet } from '@/utils/api';
 import { Product } from './types';
 import { PRODUCTS_URLS } from './urls';
 

@@ -5,6 +5,7 @@
         'image description description'
         'image meta counter';
     grid-template-rows: 44px 80px 48px;
+    grid-template-columns: auto auto 170px;
     width: 763px;
     gap: 4px;
     background-color: #fff;
@@ -48,7 +49,6 @@ $z-index-link-after: 0;
 
 .product-counter {
     grid-area: counter;
-    justify-self: end;
     z-index: $z-index-link-after + 1;
 }
 

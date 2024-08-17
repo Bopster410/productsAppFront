@@ -110,3 +110,5 @@ export const userInfoSlice = createSlice({
             );
     },
 });
+
+export const userReducer = userInfoSlice.reducer;

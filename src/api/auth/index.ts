@@ -1,4 +1,4 @@
-import { ajaxPost } from '../../utils/api';
+import { ajaxPost } from '@/utils/api';
 import { LoginUserResponse, RefreshAccessTokenResponse } from './types';
 import { AUTH_URLS } from './urls';
 

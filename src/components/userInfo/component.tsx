@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { Button } from '../uikit/button/component';
+import { Button } from '@/uikit/button/component';
 import styles from './style.module.scss';
 import classNames from 'classnames';
 

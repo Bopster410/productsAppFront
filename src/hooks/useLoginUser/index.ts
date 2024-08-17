@@ -3,10 +3,10 @@ import {
     logInUserThunk,
     logOutUserThunk,
     selectUserInfo,
-} from '../../store/user';
+} from '@/store/user';
 import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../../store';
-import { selectAuthRequestStatus } from '../../store/user/selectors';
+import { RootState, useAppDispatch } from '@/store';
+import { selectAuthRequestStatus } from '@/store/user/selectors';
 import { useCallback } from 'react';
 
 export function useLoginUser() {

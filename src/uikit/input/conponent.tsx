@@ -5,12 +5,14 @@ import classNames from 'classnames';
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     inputData?: 'number' | 'string';
     align?: 'left' | 'center';
+    inputSize?: 'xl' | 'normal';
 }
 
 export const Input: FunctionComponent<Props> = ({
     type,
     value,
     align,
+    inputSize,
     ...props
 }) => {
     return (
@@ -20,7 +22,8 @@ export const Input: FunctionComponent<Props> = ({
                 styles.input,
                 align === 'center'
                     ? styles['input_align-center']
-                    : styles['input_align-left']
+                    : styles['input_align-left'],
+                styles[`input_${inputSize ?? 'normal'}`]
             )}
             type={type}
             value={value}

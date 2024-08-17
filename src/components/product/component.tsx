@@ -1,14 +1,14 @@
 import { FunctionComponent } from 'react';
-import { Counter } from '../uikit/counter/component';
+import { Counter } from '@/uikit/counter/component';
 import styles from './style.module.scss';
 import placeholderUrl from './placeholder.jpg';
 import classNames from 'classnames';
-import { Clamper } from '../uikit/clamper/component';
-import { LinkCustom } from '../uikit/link/component';
+import { Clamper } from '@/uikit/clamper/component';
+import { LinkCustom } from '@/uikit/link/component';
 import { motion } from 'framer-motion';
-import { shortenNumber } from '../../utils/shortenNumber';
-import { Button } from '../uikit/button/component';
-import { WithLoader } from '../uikit/withLoader/component';
+import { shortenNumber } from '@/utils/shortenNumber';
+import { Button } from '@/uikit/button/component';
+import { WithLoader } from '@/uikit/withLoader/component';
 
 type Props = {
     id: string;
@@ -49,7 +49,10 @@ export const Product: FunctionComponent<Props> = ({
                 alt='product image'
             />
             <div className={classNames(styles['product-header'], 'h5')}>
-                <LinkCustom to={`/product/${id}`}>
+                <LinkCustom
+                    role='heading'
+                    to={`/product/${id}`}
+                >
                     <Clamper maxLines={1}>{name}</Clamper>
                 </LinkCustom>
                 <div className={classNames(styles['product-price'], 'h4')}>
@@ -101,12 +104,14 @@ export const Product: FunctionComponent<Props> = ({
                             onAdd={onAdd}
                             onDelete={onDelete}
                             initialValue={totalInCart}
+                            width='100%'
                         />
                     ) : (
                         <Button
                             disabled={isLoading}
                             onClick={onAdd}
                             color='primary'
+                            width='100%'
                         >
                             Добавить
                         </Button>

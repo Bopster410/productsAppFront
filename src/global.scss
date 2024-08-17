@@ -2,7 +2,7 @@ $container-max-width-xxl: 1536px;
 
 @font-face {
     font-family: 'NunitoSans';
-    src: url(NunitoSans.woff2);
+    src: url(nunitosans.ttf);
 }
 
 :root {
@@ -12,6 +12,7 @@ $container-max-width-xxl: 1536px;
     --font-size-h4: 32px;
     --font-size-h5: 24px;
     --font-size-h6: 20px;
+    --font-size-paragraph-xl: 20px;
     --font-size-paragraph: 16px;
     --font-size-paragraph-sm: 12px;
 
@@ -53,23 +54,50 @@ $container-max-width-xxl: 1536px;
     --z-index-overlay: 100;
 }
 
+.shadow {
+    box-shadow: var(--shadow);
+}
+
+.squared {
+    aspect-ratio: 1;
+}
+
 body {
     margin: 0;
     background-color: var(--color-main-bg);
 }
 
 %text-base {
-    font-family: 'NunitoSans', sans-serif;
+    font-family: NunitoSans;
     color: black;
+}
+
+.b-rad-md {
+    border-radius: var(--border-radius-md);
+}
+
+.b-rad-sm {
+    border-radius: var(--border-radius-sm);
 }
 
 .abs {
     position: absolute;
 }
 
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .p {
     @extend %text-base;
     font-size: var(--font-size-paragraph);
+}
+
+.p-xl {
+    @extend %text-base;
+    font-size: var(--font-size-paragraph-xl);
 }
 
 .p-b {
@@ -114,6 +142,14 @@ body {
 .h6 {
     @extend %header-base;
     font-size: var(--font-size-h6);
+    font-weight: 600;
+}
+
+.text-secondary {
+    @extend %text-base;
+    font-size: var(--font-size-paragraph-sm);
+    color: var(--color-secondary-grey);
+    font-weight: bold;
 }
 
 .container {

@@ -1,10 +1,18 @@
 import { FunctionComponent, useEffect, useState } from 'react';
-import { ProductContainer } from '../../components/product/container';
+import { ProductContainer } from '@/components/product/container';
 import { getProductById } from '.';
-import { handleLongRequest } from '../../utils/api/ajax/throttling';
-import { WithLoader } from '../../components/uikit/withLoader/component';
-export const ProductByIdContainer: FunctionComponent<{ id: string }> = ({
+import { handleLongRequest } from '@/utils/api/ajax/throttling';
+import { WithLoader } from '@/uikit/withLoader/component';
+import { ProductProps } from '@/components/product/component';
+
+type Props = {
+    id: string;
+    ProductCard?: React.ComponentType<ProductProps>;
+};
+
+export const ProductByIdContainer: FunctionComponent<Props> = ({
     id,
+    ProductCard,
 }) => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
@@ -47,6 +55,7 @@ export const ProductByIdContainer: FunctionComponent<{ id: string }> = ({
                     totalComments={totalComments}
                     rating={rating}
                     description={description}
+                    ProductCard={ProductCard}
                 />
             )}
         </WithLoader>

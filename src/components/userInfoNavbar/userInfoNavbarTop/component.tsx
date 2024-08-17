@@ -1,6 +1,6 @@
 import { motion, Variants } from 'framer-motion';
 import { FunctionComponent } from 'react';
-import { WithAuthorization } from '../../uikit/withAuthorization/component';
+import { WithAuthorization } from '@/uikit/withAuthorization/component';
 import styles from './style.module.scss';
 import defaultUserIcon from './user.jpg';
 import classNames from 'classnames';

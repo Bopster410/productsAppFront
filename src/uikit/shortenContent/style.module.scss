@@ -1,0 +1,21 @@
+.shortener {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: var(--button-height-sm);
+}
+
+.shortener_hidden::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, transparent 60%, #fff 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.shortener_shown {
+    height: fit-content;
+}
