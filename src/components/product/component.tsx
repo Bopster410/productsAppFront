@@ -49,7 +49,10 @@ export const Product: FunctionComponent<Props> = ({
                 alt='product image'
             />
             <div className={classNames(styles['product-header'], 'h5')}>
-                <LinkCustom to={`/product/${id}`}>
+                <LinkCustom
+                    role='heading'
+                    to={`/product/${id}`}
+                >
                     <Clamper maxLines={1}>{name}</Clamper>
                 </LinkCustom>
                 <div className={classNames(styles['product-price'], 'h4')}>

@@ -5,8 +5,9 @@ import { motion, SVGMotionProps } from 'framer-motion';
 export const PlusButton: FunctionComponent<ButtonProps> = (props) => {
     return (
         <Button
-            square
             {...props}
+            square
+            aria-label='plus button'
         >
             <svg
                 width='12'
@@ -30,8 +31,9 @@ export const PlusButton: FunctionComponent<ButtonProps> = (props) => {
 export const MinusButton: FunctionComponent<ButtonProps> = (props) => {
     return (
         <Button
-            square
             {...props}
+            square
+            aria-label='minus button'
         >
             <svg
                 width='12'

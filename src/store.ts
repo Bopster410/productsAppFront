@@ -1,14 +1,18 @@
-import { configureStore, Dispatch } from '@reduxjs/toolkit';
-import { userInfoSlice } from './store/user';
+import { combineReducers, configureStore, Dispatch } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+import { userReducer } from './store/user/slice';
 
-// Создание стора
-export const store = configureStore({
-    reducer: { userInfo: userInfoSlice.reducer },
-});
+const rootReducer = combineReducers({ userInfo: userReducer });
 
-export type AppStore = typeof store;
-export type RootState = ReturnType<AppStore['getState']>;
+export function setupStore(preloadedState?: Partial<RootState>) {
+    return configureStore({
+        reducer: rootReducer,
+        preloadedState,
+    });
+}
+
+export type AppStore = ReturnType<typeof setupStore>;
+export type RootState = ReturnType<typeof rootReducer>;
 export type Action<Payload = any> = { payload: Payload; type: string };
 export type Indexed<T> = {
     [id: string]: T;
@@ -33,3 +37,6 @@ export type AsyncThunkConfig = {
 };
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+
+// Создание стора
+export const store = setupStore();
