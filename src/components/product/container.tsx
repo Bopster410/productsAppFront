@@ -66,17 +66,19 @@ export const ProductContainer: FunctionComponent<Props> = ({
         useSelector((state: RootState) => selectCartItemById(state, id)) ?? 0;
 
     return (
-        <ProductCard
-            name={name}
-            isLoading={isLoading}
-            id={id}
-            onAdd={handleIncrement}
-            onDelete={handleDecrement}
-            totalInCart={totalInCart}
-            price={price}
-            totalComments={totalComments}
-            rating={rating}
-            description={description}
-        />
+        <>
+            <ProductCard
+                name={name}
+                isLoading={isLoading}
+                id={id}
+                onAdd={handleIncrement}
+                onDelete={handleDecrement}
+                totalInCart={totalInCart}
+                price={price}
+                totalComments={totalComments}
+                rating={rating}
+                description={description}
+            />
+        </>
     );
 };
