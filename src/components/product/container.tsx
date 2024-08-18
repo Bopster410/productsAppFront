@@ -9,7 +9,6 @@ import {
 import { usePrivateRequest } from '@/hooks/usePrivateRequest';
 import { selectCartItemById } from '@/store/user';
 import { handleLongRequest } from '@/utils/api/ajax/throttling';
-import { ProductOpenGraph } from './og';
 
 type Props = {
     id: string;
@@ -68,10 +67,6 @@ export const ProductContainer: FunctionComponent<Props> = ({
 
     return (
         <>
-            <ProductOpenGraph
-                name={name}
-                description={description}
-            />
             <ProductCard
                 name={name}
                 isLoading={isLoading}
