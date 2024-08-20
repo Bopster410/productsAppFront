@@ -4,12 +4,10 @@ import { getAllProducts } from '../../api/products';
 import { ProductContainerProps } from '../product/container';
 import { WithLoader } from '@/uikit/withLoader/component';
 import { handleLongRequest } from '@/utils/api/ajax/throttling';
-import { WithErrorPlaceholder } from '../error/component';
 
 export const ProductsContainter = () => {
     const [products, setProducts] = useState<ProductContainerProps[]>([]);
     const [isLoading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(true);
 
     useEffect(() => {
         handleLongRequest(
@@ -18,7 +16,7 @@ export const ProductsContainter = () => {
             () => setLoading(false),
             {
                 thenFunc: (response) => {
-                    if (response?.status !== 200) return setSuccess(false);
+                    if (response?.status !== 200) throw 'wrong data';
 
                     const newProducts = [...products];
                     response.data?.forEach(
@@ -42,7 +40,9 @@ export const ProductsContainter = () => {
                     );
                     setProducts(newProducts);
                 },
-                catchFunc: () => setSuccess(false),
+                catchFunc: () => {
+                    throw 'errr';
+                },
                 handleAfter: 500,
                 handleFor: 1000,
             }
@@ -54,9 +54,7 @@ export const ProductsContainter = () => {
             height='50vh'
             isLoading={isLoading}
         >
-            <WithErrorPlaceholder success={success}>
-                <Products products={products} />
-            </WithErrorPlaceholder>
+            <Products products={products} />
         </WithLoader>
     );
 };
