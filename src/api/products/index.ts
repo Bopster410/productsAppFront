@@ -8,6 +8,7 @@ export function getAllProducts() {
     return ajaxGet<Product[]>(PRODUCTS_URLS.ALL);
 }
 
-export function getProductById(id: string) {
+export async function getProductById(id?: string) {
+    if (!id) return;
     return ajaxGet<Product>(PRODUCTS_URLS.ID + id);
 }

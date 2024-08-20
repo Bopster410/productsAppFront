@@ -1,9 +1,10 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
+import { FunctionComponent } from 'react';
 
 const FONT = "'NunitoSans', sans-serif";
 
 type Props = {
-    success: boolean;
+    header: string;
+    description: string | React.ReactNode;
 };
 
 const ErrorPlaceholder = () => {
@@ -116,14 +117,23 @@ const ErrorPlaceholder = () => {
     );
 };
 
-export const WithErrorPlaceholder: FunctionComponent<
-    PropsWithChildren<Props>
-> = ({ children, success }) => {
-    return success ? (
-        <>{children}</>
-    ) : (
-        <div className='flex-center pointer-none'>
-            <ErrorPlaceholder />
+export const ErrorMessage: FunctionComponent<Props> = ({
+    header,
+    description,
+}) => {
+    return (
+        <div>
+            <div
+                style={{ marginBottom: '16px' }}
+                className='h4'
+            >
+                {header}
+            </div>
+            {typeof description === 'string' ? (
+                <div className='p-xl'>{description}</div>
+            ) : (
+                description
+            )}
         </div>
     );
 };
