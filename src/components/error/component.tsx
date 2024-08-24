@@ -7,7 +7,7 @@ type Props = {
     description: string | React.ReactNode;
 };
 
-const ErrorPlaceholder = () => {
+export const ErrorPlaceholder = () => {
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'

@@ -8,6 +8,20 @@ export default defineConfig({
     resolve: {
         alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
     },
+    build: {
+        rollupOptions: {
+            input: {
+                app: './index.html',
+                'service-worker': './src/serviceWorker/sw/index.sw.tsx',
+            },
+            output: {
+                entryFileNames: (assetInfo) =>
+                    assetInfo.name === 'service-worker'
+                        ? 'sw.js'
+                        : '[name]-[hash].js',
+            },
+        },
+    },
     test: {
         environment: 'jsdom',
         globals: true,

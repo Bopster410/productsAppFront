@@ -4,6 +4,7 @@ import styles from './style.module.scss';
 import { LoadingBarGlobal } from '../loadingBar/component';
 import { Outlet } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { OfflineStatus } from '../offlineStatus/component';
 
 export const Layout = () => {
     return (
@@ -19,6 +20,9 @@ export const Layout = () => {
                     <Outlet />
                 </motion.div>
             </main>
+            <div className={styles['offline-status-container']}>
+                <OfflineStatus />
+            </div>
         </div>
     );
 };
