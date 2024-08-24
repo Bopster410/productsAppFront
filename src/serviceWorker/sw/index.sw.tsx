@@ -40,7 +40,6 @@ self.addEventListener('fetch', (event) => {
             request: event.request,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             preloadResponsePromise: event.preloadResponse,
-            fallbackUrl: '/',
         })
     );
 });
@@ -59,7 +58,7 @@ const networkFirst = async ({
     fallbackUrl,
 }: {
     request: Request;
-    fallbackUrl: string;
+    fallbackUrl?: string;
     preloadResponsePromise?: Promise<Response>;
 }) => {
     // Use network
@@ -76,9 +75,11 @@ const networkFirst = async ({
             return responseFromCache;
         }
 
-        const fallbackResponse = await caches.match(fallbackUrl);
-        if (fallbackResponse) {
-            return fallbackResponse;
+        if (fallbackUrl) {
+            const fallbackResponse = await caches.match(fallbackUrl);
+            if (fallbackResponse) {
+                return fallbackResponse;
+            }
         }
 
         return new Response('connection error', {
