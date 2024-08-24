@@ -1,17 +1,16 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { ProductByIdContainer } from '../../api/products/container';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { ProductFullPage } from '@/components/productFullPage/component';
 import { LinkBack } from '@/uikit/link/back';
+import { DataResponce } from '@/utils/api/ajax/index.types';
+import { Product } from '@/api/products/types';
+import { ProductContainer } from '@/components/product/container';
 
 export const ProductPage = () => {
     const { id } = useParams();
+    const { data } = useLoaderData() as DataResponce<Product>;
+    if (!data) return;
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (id === undefined) navigate('/');
-    }, [id]);
+    const { productId, name, price, description, rating, totalComments } = data;
 
     return (
         id && (
@@ -47,9 +46,14 @@ export const ProductPage = () => {
                         назад
                     </LinkBack>
                 </span>
-                <ProductByIdContainer
+                <ProductContainer
+                    id={productId}
+                    name={name}
+                    price={price}
+                    description={description}
+                    totalComments={totalComments}
+                    rating={rating}
                     ProductCard={ProductFullPage}
-                    id={id}
                 />
             </div>
         )

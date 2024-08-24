@@ -5,6 +5,9 @@ $container-max-width-xxl: 1536px;
     src: url(nunitosans.ttf);
 }
 
+$color-main-red-rgb: 205, 50, 50;
+$color-main-success-rgb: 6, 130, 107;
+
 :root {
     --font-size-h1: 80px;
     --font-size-h2: 64px;
@@ -34,16 +37,19 @@ $container-max-width-xxl: 1536px;
     --color-main-light: #c3c9e9;
     --color-main-bg: #f1f1f7;
     --color-main-bg-lighter: #ebebf4;
-    --color-main-red: #cd3232;
+    --color-main-red: rgb(#{$color-main-red-rgb});
     --color-main-red-darker: #bf4040;
     --color-main-red-lighter: #e85555;
-    --color-main-success: #06826b;
+    --color-main-success: rgb(#{$color-main-success-rgb});
     --color-secondary-grey: #8b8982;
     --color-secondary-colored: #aaabbc;
     --color-basic-black: #000;
     --color-basic-black-lighter: #373f47;
     --color-basic-white: #fff;
     --color-basic-white-darker: #dcdcdc;
+
+    --color-main-red-rgb: #{$color-main-red-rgb};
+    --color-main-success-rgb: #{$color-main-success-rgb};
 
     --color-transition-duration: 0.2s;
 

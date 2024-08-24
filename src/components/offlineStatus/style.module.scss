@@ -1,0 +1,30 @@
+.status-container {
+    pointer-events: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+}
+
+.status-icon {
+    aspect-ratio: 1;
+    display: flex;
+    width: 40px;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.status-icon_bottom-right {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.status-icon_red {
+    background: var(--color-main-red);
+    color: var(--color-basic-white);
+}

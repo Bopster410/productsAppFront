@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Products } from '../products/component';
 import { ProductContainerProps } from '../product/container';
@@ -9,31 +8,29 @@ import { isUserLogged } from '@/store/user';
 import { RootState } from '@/store';
 import { handleLongRequest } from '@/utils/api/ajax/throttling';
 import { WithLoader } from '@/uikit/withLoader/component';
+import { ErrorMessage } from '../error/component';
 
-export const CartContainer = () => {
-    const navigate = useNavigate();
+export const CartItemsContainer = () => {
     const axiosInstance = usePrivateRequest();
 
     const [productsInCart, setProductsInCart] = useState<
         ProductContainerProps[]
     >([]);
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(true);
 
     const isLogged = useSelector((state: RootState) => isUserLogged(state));
 
     useEffect(() => {
         if (!isLogged) {
-            navigate('/', { replace: true });
             return;
         }
 
         handleLongRequest(
             () => getUserCart(axiosInstance),
-            () => setLoading(true),
+            () => {},
             () => setLoading(false),
             {
                 thenFunc: (response) => {
-                    console.log(response);
                     if (response?.status !== 200 || !response.data) return;
 
                     const loadedProducts: ProductContainerProps[] = [];
@@ -50,7 +47,6 @@ export const CartContainer = () => {
                     );
 
                     if (loadedProducts.length === 0) {
-                        navigate('/', { replace: true });
                         return;
                     }
 
@@ -67,7 +63,14 @@ export const CartContainer = () => {
             isLoading={isLoading}
             height='50vh'
         >
-            <Products products={productsInCart} />
+            {productsInCart.length > 0 || isLoading ? (
+                <Products products={productsInCart} />
+            ) : (
+                <ErrorMessage
+                    header='Здесь пока что ничего нет :('
+                    description='Скорее переходите в каталог!'
+                />
+            )}
         </WithLoader>
     );
 };

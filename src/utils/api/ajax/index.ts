@@ -1,7 +1,13 @@
 import { QueryParam, DataResponce } from './index.types';
 import { BACKEND_URL } from '../config/index.constants';
-import axios, { AxiosError, AxiosHeaders, AxiosInstance } from 'axios';
+import axios, {
+    AxiosError,
+    AxiosHeaders,
+    AxiosInstance,
+    InternalAxiosRequestConfig,
+} from 'axios';
 import { ALLOWED_PICTURE_TYPES, Methods } from './index.constants';
+import { refreshAccessTokenRequest } from '@/api/auth';
 
 export const axiosPublic = axios.create({
     baseURL: BACKEND_URL,
@@ -147,4 +153,59 @@ export async function fetchPicture(url: string) {
         .then((data: DataResponce<Blob>) => {
             return data;
         });
+}
+
+interface CustomConfig extends InternalAxiosRequestConfig {
+    sent: boolean;
+}
+
+export function addPrivateInterceptors(
+    axiosInstance: AxiosInstance,
+    accessToken: string,
+    refreshToken: string,
+    onTokenRefresh: (token: string) => void
+) {
+    const requestIntercept = axiosInstance.interceptors.request.use(
+        (config) => {
+            // Set Atuhorization header if it's not set
+            if (config.headers['Authorization'] === undefined)
+                config.headers.set('Authorization', `Bearer ${accessToken}`);
+            return config;
+        },
+        (error) => Promise.reject(error)
+    );
+
+    const responseIntercept = axiosInstance.interceptors.response.use(
+        (response) => response,
+        // Try updating access token and performing request once again
+        async (error: AxiosError) => {
+            const prevRequest = error?.config as CustomConfig;
+            if (
+                error?.response?.status === 403 &&
+                !prevRequest?.sent &&
+                refreshToken
+            ) {
+                prevRequest.sent = true;
+                const newAccessToken = (
+                    await refreshAccessTokenRequest(refreshToken)
+                ).data?.accessToken;
+                if (newAccessToken) {
+                    onTokenRefresh(newAccessToken);
+                    prevRequest.headers.set(
+                        'Authorization',
+                        `Bearer ${newAccessToken}`
+                    );
+                    return axiosInstance(prevRequest);
+                }
+            }
+            return Promise.reject(error);
+        }
+    );
+
+    return {
+        clearAxios: () => {
+            axiosInstance.interceptors.request.eject(requestIntercept);
+            axiosInstance.interceptors.response.eject(responseIntercept);
+        },
+    };
 }
